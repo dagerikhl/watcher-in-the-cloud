@@ -4,7 +4,11 @@
         <div class="logo"><img src="../assets/logo.png"></div>
         <h1 class="title"><a href="/">Watcher in the Cloud</a></h1>
     </div>
-    <h2 class="subtitle">by Dag Erik Homdrum Løvgren (<a href="https://gitlab.com/dagerikhl">dagerikhl</a>)</h2>
+    <h2 class="subtitle">
+        by dagerikhl
+        (<a href="https://github.com/dagerikhl" target="_blank">GitHub</a>
+        | <a href="https://gitlab.com/dagerikhl" target="_blank">GitLab</a>)
+    </h2>
 </header>
 </template>
 
