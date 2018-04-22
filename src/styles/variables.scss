@@ -1,2 +1,8 @@
+// Colors
 $color-pri: #304050;
 $color-sec: lighten($color-pri, 50%);
+
+$color-border-pri: #203010;
+
+// Borders
+$border-pri: 1px solid $color-border-pri;

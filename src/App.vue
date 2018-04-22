@@ -21,17 +21,10 @@ export default class App extends Vue {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 @import "styles/variables";
 @import "styles/common";
 
 #app {
-    min-width: 640px;
-    min-height: 480px;
-
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    color: $color-pri;
 }
 </style>
