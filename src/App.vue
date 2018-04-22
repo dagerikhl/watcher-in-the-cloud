@@ -1,12 +1,13 @@
 <template>
 <div id="app">
     <Header/>
-    <MarvelMovies msg="Welcome to Your Vue.js + TypeScript App"/>
+    <MarvelMovies/>
 </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+
 import Header from './components/Header.vue';
 import MarvelMovies from './components/MarvelMovies.vue';
 
@@ -20,20 +21,17 @@ export default class App extends Vue {
 }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 @import "styles/variables";
+@import "styles/common";
 
-body {
-    margin: 0;
+#app {
+    min-width: 640px;
+    min-height: 480px;
 
-    #app {
-        min-width: 640px;
-        min-height: 480px;
-
-        font-family: 'Avenir', Helvetica, Arial, sans-serif;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        color: $color-pri;
-    }
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: $color-pri;
 }
 </style>
