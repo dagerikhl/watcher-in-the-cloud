@@ -39,7 +39,7 @@
 </script>
 
 <style lang="scss">
-    @import "styles/common";
+    @import "../styles/common";
 
     #app {
         .content-container {

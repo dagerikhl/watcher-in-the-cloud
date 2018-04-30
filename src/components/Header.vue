@@ -1,7 +1,7 @@
 <template>
     <header>
         <a class="link title-container" href="/">
-            <div class="logo"><img src="../assets/logo.png"></div>
+            <div class="logo"><img src="../../assets/logo.png"></div>
             <h1 class="title">{{title}}</h1>
         </a>
         <h2 class="author">
@@ -27,8 +27,8 @@
 </script>
 
 <style scoped lang="scss">
-    @import "../styles/variables";
-    @import "../styles/common";
+    @import "../../styles/variables";
+    @import "../../styles/common";
 
     header {
         display: flex;
