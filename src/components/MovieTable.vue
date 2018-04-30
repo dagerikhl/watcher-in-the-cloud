@@ -1,13 +1,7 @@
 <template>
     <table class="movieTable">
         <colgroup>
-            <col span="1"/>
-            <col span="1"/>
-            <col span="1"/>
-            <col span="1"/>
-            <col span="1"/>
-            <col span="1"/>
-            <col span="1"/>
+            <col v-for="_ in 7" span="1"/>
         </colgroup>
 
         <thead>
