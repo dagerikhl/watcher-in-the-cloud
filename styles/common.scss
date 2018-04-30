@@ -29,6 +29,13 @@ a {
     cursor: default;
 }
 
+// Force display of icons as centered blocks
+svg {
+    display: block !important;
+
+    margin: 0 auto;
+}
+
 // Event-based modifications
 .link {
     box-sizing: border-box;
