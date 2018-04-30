@@ -102,7 +102,10 @@
         }
 
         .btn-column {
-            * {
+            > * {
+                height: 16px;
+                width: 16px;
+
                 display: block;
                 margin: 0 auto;
             }
