@@ -44,7 +44,7 @@
     import { Component, Prop, Vue } from 'vue-property-decorator';
 
     import IMovieData from '../interfaces/IMovieData';
-    import Checkbox from './Checkbox';
+    import Checkbox from './Checkbox.vue';
 
     @Component({
         components: { Checkbox },

@@ -7,6 +7,7 @@
 
 <script lang="ts">
     import { Component, Prop, Vue } from 'vue-property-decorator';
+    import ElementEvent from '../utilities/ElementEvent';
 
     @Component({
         props: {
@@ -17,9 +18,9 @@
     export default class Checkbox extends Vue {
 
         @Prop() private checked!: boolean;
-        @Prop() private tooltip: string;
+        @Prop() private tooltip: string = '';
 
-        updateChecked(event: Event): void {
+        updateChecked(event: ElementEvent<HTMLInputElement>): void {
             this.$emit('input', event.target.checked);
         }
 

@@ -11,7 +11,7 @@
     import { Component, Vue } from 'vue-property-decorator';
 
     import Header from './components/Header.vue';
-    import MovieTable from './components/MovieTable';
+    import MovieTable from './components/MovieTable.vue';
 
     import IMovieData from './interfaces/IMovieData';
 
