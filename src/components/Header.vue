@@ -1,67 +1,67 @@
 <template>
-<header>
-    <div class="title-container">
-        <div class="logo"><img src="../assets/logo.png"></div>
-        <h1 class="title"><a href="/">Watcher in the Cloud</a></h1>
-    </div>
-    <h2 class="subtitle">
-        by dagerikhl
-        (<a href="https://github.com/dagerikhl" target="_blank">GitHub</a>
-        | <a href="https://gitlab.com/dagerikhl" target="_blank">GitLab</a>)
-    </h2>
-</header>
+    <header>
+        <a class="link title-container" href="/">
+            <div class="logo"><img src="../assets/logo.png"></div>
+            <h1 class="title">{{title}}</h1>
+        </a>
+        <h2 class="author">
+            by {{username}}
+            (<a class="link" :href="`https://github.com/${username}`" target="_blank">GitHub</a>
+            | <a class="link" :href="`https://gitlab.com/${username}`" target="_blank">GitLab</a>)
+        </h2>
+    </header>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+    import { Component, Prop, Vue } from 'vue-property-decorator';
 
-@Component
-export default class Header extends Vue {
-}
+    @Component({
+        props: ['title', 'username']
+    })
+    export default class Header extends Vue {
+
+        @Prop() private title!: string;
+        @Prop() private username!: string;
+
+    }
 </script>
 
 <style scoped lang="scss">
-@import "../styles/variables";
+    @import "../styles/variables";
+    @import "../styles/common";
 
-h1, h2 {
-    margin: 0;
-}
-
-a {
-    text-decoration: none;
-    color: inherit;
-}
-
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    padding: 1rem 2rem;
-
-    .title-container {
+    header {
         display: flex;
+        justify-content: space-between;
         align-items: center;
 
-        .logo {
-            margin-right: 1rem;
+        padding: $standard-padding;
 
-            > img {
-                height: 32px;
-                width: 32px;
+        background-color: $bkg-color-header;
+
+        border-bottom: $border-header;
+
+        .title-container {
+            display: flex;
+            align-items: center;
+
+            .logo {
+                margin-right: 1rem;
+
+                > img {
+                    height: 32px;
+                    width: 32px;
+                }
+            }
+
+            .title {
+                font-size: 200%;
+                font-weight: bold;
             }
         }
 
-        .title {
-            font-size: 150%;
-            font-weight: bold;
+        .author {
+            font-size: 100%;
         }
     }
-
-    .subtitle {
-        font-size: 105%;
-        font-weight: normal;
-        color: $color-sec;
-    }
-}
 </style>

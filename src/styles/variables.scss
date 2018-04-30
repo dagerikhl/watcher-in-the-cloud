@@ -1,8 +1,26 @@
 // Colors
+
+//// Background colors
+$bkg-color-pri: #ffffff;
+$bkg-color-header: #fff6f6;
+
+//// Font colors
 $color-pri: #304050;
 $color-sec: lighten($color-pri, 50%);
 
-$color-border-pri: #203010;
+//// Border colors
+$color-border-header: #fbebeb;
+$color-border-tab: #203010;
 
 // Borders
-$border-pri: 1px solid $color-border-pri;
+$border-header: 1px solid $color-border-header;
+$border-tab: 2px solid $color-border-tab;
+
+$border-link-hover: 1px solid $color-pri;
+
+// Margins and Paddings
+
+//// Margins
+
+//// Paddings
+$standard-padding: 1rem 2rem;

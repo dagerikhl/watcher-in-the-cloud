@@ -1,11 +1,50 @@
 @import "./variables";
 
-// Global modifications
+// Global standards for the application
 body {
     margin: 0;
+
+    background-color: $bkg-color-pri;
 
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     color: $color-pri;
+    font-size: 80%;
+}
+
+// Remove styling from header elements
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+
+    font-size: 100%;
+    font-weight: normal;
+}
+
+// Remove styling from links
+a {
+    text-decoration: none;
+    color: inherit;
+
+    cursor: default;
+}
+
+// Event-based modifications
+.link {
+    box-sizing: border-box;
+
+    padding-bottom: 1px;
+
+    &:hover {
+        padding-bottom: 0;
+
+        border-bottom: $border-link-hover;
+        cursor: pointer;
+    }
+}
+
+.clickable {
+    &:hover {
+        cursor: pointer;
+    }
 }
