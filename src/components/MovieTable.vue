@@ -54,8 +54,6 @@
 </script>
 
 <style scoped lang="scss">
-    @import "../../styles/variables";
-
     .movieTable {
         width: 100%;
 

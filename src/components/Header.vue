@@ -27,9 +27,6 @@
 </script>
 
 <style scoped lang="scss">
-    @import "../../styles/variables";
-    @import "../../styles/common";
-
     header {
         display: flex;
         justify-content: space-between;

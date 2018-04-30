@@ -30,8 +30,6 @@
 </script>
 
 <style scoped lang="scss">
-    @import "../../styles/variables";
-
     input[type=checkbox] {
         display: none;
     }
