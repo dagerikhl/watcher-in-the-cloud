@@ -7,10 +7,10 @@
         <thead>
         <tr>
             <th v-for="textColumn in textColumns">{{textColumn}}</th>
-            <th class="btn-column">
+            <th class="btn-column" title="Downloaded?">
                 <icon name="download"></icon>
             </th>
-            <th class="btn-column">
+            <th class="btn-column" title="Seen?">
                 <icon name="eye"></icon>
             </th>
         </tr>
