@@ -45,7 +45,13 @@
     @import "~styles/common.scss";
 
     #app {
+        display: flex;
+        flex-direction: column;
+
+        height: 100%;
+
         .content-container {
+            flex-grow: 1;
             position: relative;
             margin: $standard-margin;
         }
