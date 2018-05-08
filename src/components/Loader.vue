@@ -1,6 +1,8 @@
 <template>
     <div class="loader">
-        Loading{{dots}}
+        <div class="loader-text">
+            Loading{{dots}}
+        </div>
     </div>
 </template>
 
@@ -24,10 +26,27 @@
 
 <style scoped lang="scss">
     .loader {
-        width: 200px;
+        position: absolute;
 
-        margin: 0 auto;
+        height: 100%;
+        width: 100%;
 
-        font-size: 200%;
+        z-index: 100;
+
+        background-color: $bkg-color-overlay;
+
+        .loader-text {
+            position: absolute;
+
+            top: 50%;
+            left: 50%;
+
+            transform: translate(-50%, -50%);
+
+            width: 145px;
+
+            font-size: 200%;
+            font-weight: bold;
+        }
     }
 </style>
