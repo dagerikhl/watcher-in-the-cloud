@@ -14,10 +14,15 @@ Vue.config.productionTip = false;
 // Register plugins
 Vue.use(VueFire);
 firebase.initializeApp({
+    apiKey: 'AIzaSyDt3sxUCp1aKw0ngvH8ACt-_A0fgZQNd4w',
+    authDomain: 'watcher-in-the-cloud.firebaseapp.com',
+    databaseURL: 'https://watcher-in-the-cloud.firebaseio.com',
     projectId: 'watcher-in-the-cloud',
-    databaseURL: 'https://watcher-in-the-cloud.firebaseio.com'
+    storageBucket: 'watcher-in-the-cloud.appspot.com',
+    messagingSenderId: '927168675158'
 });
 export const db = firebase.firestore();
+db.settings({ timestampsInSnapshots: true });
 
 // Register components
 Vue.component('icon', Icon);

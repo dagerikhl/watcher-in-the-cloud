@@ -1,5 +1,6 @@
 export default interface IMovieData {
 
+    id: string;
     category: string,
     studios: string,
     universe: string,

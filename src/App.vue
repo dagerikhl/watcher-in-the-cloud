@@ -2,7 +2,8 @@
     <div id="app">
         <Header title="Watcher in the Cloud" username="dagerikhl"/>
         <section class="content-container">
-            <MovieTable :data="temporaryData"/>
+            <MovieTable :data="moviesMarvel"/>
+            <Loader v-if="moviesMarvel.length === 0"/>
         </section>
     </div>
 </template>
@@ -10,7 +11,10 @@
 <script lang="ts">
     import { Component, Vue } from 'vue-property-decorator';
 
+    import { db } from './main';
+
     import Header from './components/Header.vue';
+    import Loader from './components/Loader.vue';
     import MovieTable from './components/MovieTable.vue';
 
     import IMovieData from './interfaces/IMovieData';
@@ -18,22 +22,21 @@
     @Component({
         components: {
             Header,
+            Loader,
             MovieTable
-        },
+        }
     })
     export default class App extends Vue {
 
-        private temporaryData: IMovieData[] = [
-            {
-                category: 'Live-action films',
-                studios: 'Republic Pictures',
-                universe: 'Republic',
-                title: 'Captain America',
-                year: 1944,
-                downloaded: true,
-                seen: false
-            }
-        ]
+        private moviesMarvel: IMovieData[] = [];
+
+        created() {
+            db.collection('movies-marvel').orderBy('year').get().then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    this.moviesMarvel.push({ id: doc.id, ...doc.data() } as IMovieData);
+                })
+            });
+        }
 
     }
 </script>
