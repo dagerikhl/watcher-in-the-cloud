@@ -31,11 +31,17 @@
         private moviesMarvel: IMovieData[] = [];
 
         created() {
-            db.collection('movies-marvel').orderBy('year').get().then((querySnapshot) => {
-                querySnapshot.forEach((doc) => {
-                    this.moviesMarvel.push({ id: doc.id, ...doc.data() } as IMovieData);
+            db.collection('movies-marvel')
+                .orderBy('year')
+                .get()
+                .then((querySnapshot) => {
+                    querySnapshot.forEach((doc) => {
+                        this.moviesMarvel.push({ id: doc.id, ...doc.data() } as IMovieData);
+                    })
                 })
-            });
+                .catch((error) => {
+                    console.error(error);
+                });
         }
 
     }

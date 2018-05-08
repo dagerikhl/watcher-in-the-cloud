@@ -24,9 +24,12 @@
             <td class="movie-title">{{movie.title}}</td>
             <td class="centered">{{movie.year}}</td>
             <td class="btn-column">
-                <Checkbox v-model="movie.downloaded" :checked="movie.downloaded"/>
+                <!-- TODO Fix not updating disabled attr in this.data on update finished -->
+                <Checkbox v-model="movie.downloaded" :checked="movie.downloaded" :disabled="movie.updating"
+                          @input="updateDownloaded(movie)"/>
             </td>
             <td class="btn-column">
+                <!-- TODO Fix this as well -->
                 <Checkbox v-model="movie.seen" :checked="movie.seen"/>
             </td>
         </tr>
@@ -36,6 +39,8 @@
 
 <script lang="ts">
     import { Component, Prop, Vue } from 'vue-property-decorator';
+
+    import { db } from '../main';
 
     import IMovieData from '../interfaces/IMovieData';
     import Checkbox from './Checkbox.vue';
@@ -49,6 +54,22 @@
         private readonly textColumns = ['Category', 'Studio(s)', 'Universe', 'Title', 'Year'];
 
         @Prop() private data!: IMovieData[];
+
+        updateDownloaded(movie: IMovieData) {
+            movie.updating = true;
+
+            db.collection('movies-marvel')
+                .doc(movie.id)
+                .update({ downloaded: movie.downloaded })
+                .then(() => {
+                    movie.updating = false;
+                    console.log('Movie field "downloaded" updated.');
+                })
+                .catch((error) => {
+                    movie.updating = false;
+                    console.error(error);
+                });
+        }
 
     }
 </script>
