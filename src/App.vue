@@ -2,7 +2,7 @@
     <div id="app">
         <Header title="Watcher in the Cloud" username="dagerikhl"/>
         <section class="content-container">
-            <Loader v-if="moviesMarvel.length === 0"/>
+            <Loader :show="moviesMarvel.length === 0"/>
             <MovieTable :data="moviesMarvel"/>
         </section>
     </div>

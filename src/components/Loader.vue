@@ -1,5 +1,5 @@
 <template>
-    <div class="loader">
+    <div class="loader" :class="{ show: show }">
         <div class="loader-text">
             Loading{{dots}}
         </div>
@@ -7,10 +7,14 @@
 </template>
 
 <script lang="ts">
-    import { Component, Vue } from 'vue-property-decorator';
+    import { Component, Prop, Vue } from 'vue-property-decorator';
 
-    @Component
+    @Component({
+        props: ['show']
+    })
     export default class Loader extends Vue {
+
+        @Prop() private show!: boolean;
 
         private numberOfDots = 0;
         private dots: string = '';
@@ -21,6 +25,7 @@
                 this.dots = ' .'.repeat(this.numberOfDots);
             }, 500)
         }
+
     }
 </script>
 
@@ -31,9 +36,13 @@
         height: 100%;
         width: 100%;
 
-        z-index: 100;
+        opacity: 0;
 
         background-color: $bkg-color-overlay;
+
+        transition: all 1s ease-out;
+
+        pointer-events: none;
 
         .loader-text {
             position: absolute;
@@ -48,5 +57,9 @@
             font-size: 200%;
             font-weight: bold;
         }
+    }
+
+    .show {
+        opacity: 1;
     }
 </style>
