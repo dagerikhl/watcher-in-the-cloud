@@ -21,8 +21,10 @@
 
         created() {
             setInterval(() => {
-                this.numberOfDots = (this.numberOfDots + 1)%4;
-                this.dots = ' .'.repeat(this.numberOfDots);
+                if (this.show) {
+                    this.numberOfDots = (this.numberOfDots + 1)%4;
+                    this.dots = ' .'.repeat(this.numberOfDots);
+                }
             }, 500)
         }
 
@@ -40,7 +42,7 @@
 
         background-color: $bkg-color-overlay;
 
-        transition: all 1s ease-out;
+        transition: all 0.2s ease-out;
 
         pointer-events: none;
 
