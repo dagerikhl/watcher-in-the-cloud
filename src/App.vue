@@ -11,7 +11,7 @@
 <script lang="ts">
     import { Component, Vue } from 'vue-property-decorator';
 
-    import { db } from './main';
+    import { database } from './database';
 
     import Header from './components/Header.vue';
     import Loader from './components/Loader.vue';
@@ -31,7 +31,7 @@
         private moviesMarvel: IMovieData[] = [];
 
         created() {
-            db.collection('movies-marvel')
+            database.collection('movies-marvel')
                 .orderBy('year')
                 .get()
                 .then((querySnapshot) => {

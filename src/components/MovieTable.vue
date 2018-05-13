@@ -40,7 +40,7 @@
 <script lang="ts">
     import { Component, Prop, Vue } from 'vue-property-decorator';
 
-    import { db } from '../main';
+    import { database } from '../database';
 
     import IMovieData from '../interfaces/IMovieData';
     import Checkbox from './Checkbox.vue';
@@ -58,7 +58,7 @@
         updateDownloaded(movie: IMovieData) {
             movie.updating = true;
 
-            db.collection('movies-marvel')
+            database.collection('movies-marvel')
                 .doc(movie.id)
                 .update({ downloaded: movie.downloaded })
                 .then(() => {
