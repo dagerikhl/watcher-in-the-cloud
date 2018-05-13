@@ -2,33 +2,34 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 
 import { database } from '@/globals';
-import { IMovieData } from '@/interfaces';
+import { IMovieBranch, IMovieData } from '@/interfaces';
 
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
     state: {
-        moviesMarvel: []
+        moviesMarvel: [],
+        moviesDc: []
     },
     mutations: {
-        setMoviesMarvel(state, payload) {
-            state.moviesMarvel = payload;
+        setMovies(state: any, payload: { branch: IMovieBranch, data: IMovieData[] }) {
+            state[payload.branch.accessor] = payload.data;
         }
     },
     actions: {
-        fetchMoviesMarvel({ commit }) {
+        fetchMovies({ commit }, branch: IMovieBranch) {
             return new Promise((resolve, reject) => {
-                database.collection('movies-marvel')
+                database.collection(branch.accessor)
                     .orderBy('year')
                     .get()
                     .then((querySnapshot) => {
-                        let moviesMarvel: IMovieData[] = [];
+                        let movies: IMovieData[] = [];
                         querySnapshot.forEach((doc) => {
-                            moviesMarvel.push({ id: doc.id, ...doc.data() } as IMovieData);
+                            movies.push({ id: doc.id, ...doc.data() } as IMovieData);
                         });
 
-                        commit('setMoviesMarvel', moviesMarvel);
-                        resolve(moviesMarvel);
+                        commit('setMovies', { branch, data: movies });
+                        resolve(movies);
                     })
                     .catch((error) => {
                         console.error(error);

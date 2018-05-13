@@ -3,7 +3,7 @@
         <Header title="Watcher in the Cloud" username="dagerikhl"/>
         <section class="content-container">
             <Loader :show="isUpdating"/>
-            <MovieTable :branch="{ title: 'Marvel Movies', accessor: 'moviesMarvel' }" :data="moviesMarvel"/>
+            <MovieTable :branch="moviesMarvelBranch" :data="moviesMarvelData"/>
         </section>
     </div>
 </template>
@@ -12,7 +12,7 @@
     import { Component, Vue } from 'vue-property-decorator';
 
     import { store } from './globals';
-    import { IMovieData } from './interfaces';
+    import { IMovieBranch, IMovieData } from './interfaces';
     import { Header, Loader, MovieTable } from './components';
 
     @Component({
@@ -24,14 +24,16 @@
     })
     export default class App extends Vue {
 
-        private moviesMarvel: IMovieData[] = [];
         private isUpdating: boolean = false;
+
+        private moviesMarvelBranch: IMovieBranch = { title: 'Marvel Movies', accessor: 'moviesMarvel' };
+        private moviesMarvelData: IMovieData[] = [];
 
         created() {
             this.isUpdating = true;
-            store.dispatch('fetchMoviesMarvel')
+            store.dispatch('fetchMovies', this.moviesMarvelBranch)
                 .then((movies) => {
-                    this.moviesMarvel = movies;
+                    this.moviesMarvelData = movies;
                     this.isUpdating = false;
                 });
         }
