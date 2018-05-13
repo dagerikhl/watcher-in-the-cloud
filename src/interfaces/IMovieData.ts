@@ -1,11 +1,11 @@
 export interface IMovieData {
 
-    id: string;
+    id?: string;
     category: string,
     studios: string,
     universe: string,
     title: string,
-    year: number,
+    year: number | null,
     downloaded: boolean,
     seen: boolean,
     updating?: boolean
