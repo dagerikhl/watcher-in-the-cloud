@@ -2,7 +2,7 @@
     <div id="app">
         <Header title="Watcher in the Cloud" username="dagerikhl"/>
         <section class="content-container">
-            <Loader :show="moviesMarvel.length === 0"/>
+            <Loader :show="isUpdating"/>
             <MovieTable :data="moviesMarvel"/>
         </section>
     </div>
@@ -10,6 +10,8 @@
 
 <script lang="ts">
     import { Component, Vue } from 'vue-property-decorator';
+
+    import { store } from './state';
 
     import Header from './components/Header.vue';
     import Loader from './components/Loader.vue';
@@ -26,12 +28,15 @@
     })
     export default class App extends Vue {
 
-        private moviesMarvel: IMovieData[];
+        private moviesMarvel: IMovieData[] = [];
+        private isUpdating: boolean = false;
 
         created() {
-            this.$store.dispatch('fetchMoviesMarvel')
+            this.isUpdating = true;
+            store.dispatch('fetchMoviesMarvel')
                 .then((movies) => {
                     this.moviesMarvel = movies;
+                    this.isUpdating = false;
                 });
         }
 
