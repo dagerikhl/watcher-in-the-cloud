@@ -62,15 +62,11 @@ svg {
 .show {
     opacity: 1;
 
-    pointer-events: none;
-
     transition: all 0.2s ease-out;
 }
 
 .hide {
     opacity: 0;
-
-    pointer-events: none;
 
     transition: all 0.2s ease-out;
 }

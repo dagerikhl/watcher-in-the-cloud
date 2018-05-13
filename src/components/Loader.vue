@@ -55,7 +55,7 @@
         }
     }
 
-    .show {
-        pointer-events: all;
+    .hide {
+        pointer-events: none;
     }
 </style>
