@@ -13,7 +13,6 @@
 
     import { store } from '@/globals';
     import { IMovieData } from '@/interfaces';
-
     import Header from '@/components/Header.vue';
     import Loader from '@/components/Loader.vue';
     import MovieTable from '@/components/MovieTable.vue';
