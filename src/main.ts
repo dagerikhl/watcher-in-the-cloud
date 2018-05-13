@@ -8,6 +8,7 @@ import App from './App.vue'
 Vue.config.productionTip = false;
 
 // Register plugins
+import './state';
 import './database';
 
 // Register components

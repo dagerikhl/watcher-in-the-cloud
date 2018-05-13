@@ -11,8 +11,6 @@
 <script lang="ts">
     import { Component, Vue } from 'vue-property-decorator';
 
-    import { database } from './database';
-
     import Header from './components/Header.vue';
     import Loader from './components/Loader.vue';
     import MovieTable from './components/MovieTable.vue';
@@ -28,19 +26,12 @@
     })
     export default class App extends Vue {
 
-        private moviesMarvel: IMovieData[] = [];
+        private moviesMarvel: IMovieData[];
 
         created() {
-            database.collection('movies-marvel')
-                .orderBy('year')
-                .get()
-                .then((querySnapshot) => {
-                    querySnapshot.forEach((doc) => {
-                        this.moviesMarvel.push({ id: doc.id, ...doc.data() } as IMovieData);
-                    })
-                })
-                .catch((error) => {
-                    console.error(error);
+            this.$store.dispatch('fetchMoviesMarvel')
+                .then((movies) => {
+                    this.moviesMarvel = movies;
                 });
         }
 
