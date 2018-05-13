@@ -70,6 +70,7 @@
             this.show = !this.show;
         }
 
+        // TODO Remove and make generic
         updateDownloaded(movie: IMovieData) {
             movie.updating = true;
 
