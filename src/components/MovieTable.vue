@@ -1,5 +1,5 @@
 <template>
-    <section>
+    <section class="movie-table-container">
         <div class="clickable branch" @click="toggleShow">
             <div class="icon">
                 <icon name="caret-down" v-if="show"></icon>
@@ -90,84 +90,90 @@
 </script>
 
 <style scoped lang="scss">
-    .branch {
-        display: flex;
-        align-items: center;
+    .movie-table-container {
+        margin: $standard-margin;
 
-        width: fit-content;
+        .branch {
+            display: flex;
+            align-items: center;
 
-        margin: 1em 0;
+            width: fit-content;
 
-        font-size: 150%;
+            margin: 1em 0;
 
-        .icon {
-            width: 1em;
-        }
-    }
+            font-size: 150%;
 
-    .movie-table {
-        display: block;
-
-        width: 100%;
-
-        border-collapse: collapse;
-
-        colgroup {
-            :nth-child(1) {
-                width: 14%;
-            }
-            :nth-child(2) {
-                width: 10%;
-            }
-            :nth-child(3) {
-                width: 15%;
-            }
-            :nth-child(4) {
-                width: 45%;
-            }
-            :nth-child(5) {
-                width: 10%;
-            }
-            :nth-child(6) {
-                width: 5%;
-            }
-            :nth-child(7) {
-                width: 5%;
+            .icon {
+                width: 1em;
             }
         }
 
-        thead {
-            tr {
-                th {
-                    border-bottom: $border-tab;
+        .movie-table {
+            display: block;
+
+            width: 100%;
+
+            overflow: hidden;
+
+            border-collapse: collapse;
+
+            colgroup {
+                :nth-child(1) {
+                    width: 14%;
+                }
+                :nth-child(2) {
+                    width: 10%;
+                }
+                :nth-child(3) {
+                    width: 15%;
+                }
+                :nth-child(4) {
+                    width: 45%;
+                }
+                :nth-child(5) {
+                    width: 10%;
+                }
+                :nth-child(6) {
+                    width: 5%;
+                }
+                :nth-child(7) {
+                    width: 5%;
+                }
+            }
+
+            thead {
+                tr {
+                    th {
+                        border-bottom: $border-tab;
+                    }
+                }
+            }
+
+            .movie-title {
+                font-style: italic;
+            }
+
+            .centered {
+                text-align: center;
+            }
+
+            .btn-column {
+                * {
+                    height: 16px;
+                    width: 16px;
+
+                    display: block;
+                    margin: 0 auto;
                 }
             }
         }
 
-        .movie-title {
-            font-style: italic;
+        .show {
+            max-height: 200vh;
         }
 
-        .centered {
-            text-align: center;
+        .hide {
+            max-height: 0;
         }
-
-        .btn-column {
-            * {
-                height: 16px;
-                width: 16px;
-
-                display: block;
-                margin: 0 auto;
-            }
-        }
-    }
-
-    .show {
-        max-height: 200vh;
-    }
-
-    .hide {
-        max-height: 0;
     }
 </style>

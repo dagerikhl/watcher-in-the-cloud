@@ -66,7 +66,8 @@
         .content-container {
             flex-grow: 1;
             position: relative;
-            margin: $standard-margin;
+
+            overflow-y: scroll;
         }
     }
 </style>
