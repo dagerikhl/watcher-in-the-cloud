@@ -51,7 +51,7 @@
 
     import { database } from '../globals';
     import { IMovieBranch, IMovieData } from '../interfaces';
-    import Checkbox from '../components/Checkbox.vue';
+    import { Checkbox } from '.';
 
     @Component({
         components: { Checkbox },
