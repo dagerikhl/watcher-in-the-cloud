@@ -2,8 +2,9 @@
     <div id="app">
         <Header title="Watcher in the Cloud" username="dagerikhl"/>
         <section class="content-container">
-            <Loader :show="isUpdating"/>
+            <Loader :show="isUpdating()"/>
             <MovieTable :branch="moviesMarvelBranch" :data="moviesMarvelData"/>
+            <MovieTable :branch="moviesDcBranch" :data="moviesDcData"/>
         </section>
     </div>
 </template>
@@ -24,18 +25,30 @@
     })
     export default class App extends Vue {
 
-        private isUpdating: boolean = false;
-
         private moviesMarvelBranch: IMovieBranch = { title: 'Marvel Movies', accessor: 'moviesMarvel' };
         private moviesMarvelData: IMovieData[] = [];
+        private moviesMarvelIsUpdating: boolean = true;
+
+        private moviesDcBranch: IMovieBranch = { title: 'DC Movies', accessor: 'moviesDc' };
+        private moviesDcData: IMovieData[] = [];
+        private moviesDcIsUpdating: boolean = true;
 
         created() {
-            this.isUpdating = true;
             store.dispatch('fetchMovies', this.moviesMarvelBranch)
                 .then((movies) => {
                     this.moviesMarvelData = movies;
-                    this.isUpdating = false;
+                    this.moviesMarvelIsUpdating = false;
                 });
+
+            store.dispatch('fetchMovies', this.moviesDcBranch)
+                .then((movies) => {
+                    this.moviesDcData = movies;
+                    this.moviesDcIsUpdating = false;
+                });
+        }
+
+        private isUpdating(): boolean {
+            return this.moviesMarvelIsUpdating || this.moviesDcIsUpdating;
         }
 
     }

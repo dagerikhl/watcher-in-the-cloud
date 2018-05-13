@@ -164,7 +164,7 @@
     }
 
     .show {
-        max-height: 100vh;
+        max-height: 200vh;
     }
 
     .hide {
