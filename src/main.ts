@@ -3,12 +3,12 @@ import Vue from 'vue';
 import 'vue-awesome/icons';
 import Icon from 'vue-awesome/components/Icon.vue';
 
-import App from './App.vue'
+import App from '@/App.vue'
 
 Vue.config.productionTip = false;
 
 // Register global plugins
-import './globals';
+import '@/globals';
 
 // Register components
 Vue.component('icon', Icon);

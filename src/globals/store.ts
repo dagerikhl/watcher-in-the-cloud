@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-import { database } from './database';
+import { database } from '@/globals';
 
 import { IMovieData } from '@/interfaces';
 
