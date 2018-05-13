@@ -32,6 +32,8 @@
         justify-content: space-between;
         align-items: center;
 
+        min-height: 3em;
+
         padding: $standard-padding;
 
         background-color: $bkg-color-header;
