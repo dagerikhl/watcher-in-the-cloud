@@ -49,9 +49,9 @@
 <script lang="ts">
     import { Component, Prop, Vue } from 'vue-property-decorator';
 
-    import { database } from '@/globals';
-    import { IMovieBranch, IMovieData } from '@/interfaces';
-    import Checkbox from '@/components/Checkbox.vue';
+    import { database } from '../globals';
+    import { IMovieBranch, IMovieData } from '../interfaces';
+    import Checkbox from '../components/Checkbox.vue';
 
     @Component({
         components: { Checkbox },

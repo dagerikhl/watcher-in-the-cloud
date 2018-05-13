@@ -2,7 +2,6 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 
 import { database } from '@/globals';
-
 import { IMovieData } from '@/interfaces';
 
 Vue.use(Vuex);

@@ -9,7 +9,7 @@
 <script lang="ts">
     import { Component, Prop, Vue } from 'vue-property-decorator';
 
-    import { ElementEvent } from '@/utilities';
+    import { ElementEvent } from '../utilities';
 
     @Component({
         props: ['id', 'disabled', 'tooltip']
