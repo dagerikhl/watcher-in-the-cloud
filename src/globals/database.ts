@@ -13,5 +13,6 @@ export const database = firebase.firestore();
 database.settings({ timestampsInSnapshots: true });
 
 // Seed database with initial data
-// import * as seed from '@/seed';
-// seed.seedMarvelMovies(database);
+import * as seed from '@/seed';
+// seed.seedMovies(database, 'moviesMarvel');
+// seed.seedMovies(database, 'moviesDc');
