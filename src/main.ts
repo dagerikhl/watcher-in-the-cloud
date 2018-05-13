@@ -7,9 +7,8 @@ import App from './App.vue'
 
 Vue.config.productionTip = false;
 
-// Register plugins
-import './state';
-import './database';
+// Register global plugins
+import './globals';
 
 // Register components
 Vue.component('icon', Icon);

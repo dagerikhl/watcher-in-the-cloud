@@ -1,59 +1,75 @@
 <template>
-    <table class="movieTable">
-        <colgroup>
-            <col v-for="_ in 7" span="1"/>
-        </colgroup>
+    <section>
+        <div class="clickable branch" @click="toggleShow">
+            <div class="icon">
+                <icon name="caret-down" v-if="show"></icon>
+                <icon name="caret-right" v-if="!show"></icon>
+            </div>
+            {{branch.title}}
+        </div>
+        <table class="movie-table" :class="{ show: show, hide: !show }">
+            <colgroup>
+                <col v-for="_ in 7" span="1"/>
+            </colgroup>
 
-        <thead>
-        <tr>
-            <th v-for="textColumn in textColumns">{{textColumn}}</th>
-            <th class="btn-column" title="Downloaded?">
-                <icon name="download"></icon>
-            </th>
-            <th class="btn-column" title="Seen?">
-                <icon name="eye"></icon>
-            </th>
-        </tr>
-        </thead>
+            <thead>
+            <tr>
+                <th v-for="textColumn in textColumns">{{textColumn}}</th>
+                <th class="btn-column" title="Downloaded?">
+                    <icon name="download"></icon>
+                </th>
+                <th class="btn-column" title="Seen?">
+                    <icon name="eye"></icon>
+                </th>
+            </tr>
+            </thead>
 
-        <tbody>
-        <tr v-for="movie in data">
-            <td>{{movie.category}}</td>
-            <td>{{movie.studios}}</td>
-            <td>{{movie.universe}}</td>
-            <td class="movie-title">{{movie.title}}</td>
-            <td class="centered">{{movie.year}}</td>
-            <td class="btn-column">
-                <!-- TODO Fix not updating disabled attr in this.data on update finished -->
-                <Checkbox v-model="movie.downloaded" :checked="movie.downloaded" :disabled="movie.updating"
-                          @input="updateDownloaded(movie)"/>
-            </td>
-            <td class="btn-column">
-                <!-- TODO Fix this as well -->
-                <Checkbox v-model="movie.seen" :checked="movie.seen"/>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+            <tbody>
+            <tr v-for="movie in data">
+                <td>{{movie.category}}</td>
+                <td>{{movie.studios}}</td>
+                <td>{{movie.universe}}</td>
+                <td class="movie-title">{{movie.title}}</td>
+                <td class="centered">{{movie.year}}</td>
+                <td class="btn-column">
+                    <!-- TODO Fix not updating disabled attr in this.data on update finished -->
+                    <!--<Checkbox v-model="movie.downloaded" :checked="movie.downloaded" :disabled="movie.updating"-->
+                    <!--@input="updateDownloaded(movie)"/>-->
+                </td>
+                <td class="btn-column">
+                    <!-- TODO Fix this as well -->
+                    <!--<Checkbox v-model="movie.seen" :checked="movie.seen"/>-->
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
 </template>
 
 <script lang="ts">
     import { Component, Prop, Vue } from 'vue-property-decorator';
 
-    import { database } from '../database';
+    import { database } from '@/globals';
+    import { IMovieBranch, IMovieData } from '@/interfaces';
 
-    import IMovieData from '../interfaces/IMovieData';
     import Checkbox from './Checkbox.vue';
 
     @Component({
         components: { Checkbox },
-        props: ['data']
+        props: ['branch', 'data']
     })
     export default class MovieTable extends Vue {
 
         private readonly textColumns = ['Category', 'Studio(s)', 'Universe', 'Title', 'Year'];
 
+        @Prop() private branch!: IMovieBranch;
         @Prop() private data!: IMovieData[];
+
+        private show: boolean = true;
+
+        toggleShow() {
+            this.show = !this.show;
+        }
 
         updateDownloaded(movie: IMovieData) {
             movie.updating = true;
@@ -75,14 +91,31 @@
 </script>
 
 <style scoped lang="scss">
-    .movieTable {
+    .branch {
+        display: flex;
+        align-items: center;
+
+        width: fit-content;
+
+        margin: 1em 0;
+
+        font-size: 150%;
+
+        .icon {
+            width: 1em;
+        }
+    }
+
+    .movie-table {
+        display: block;
+
         width: 100%;
 
         border-collapse: collapse;
 
         colgroup {
             :nth-child(1) {
-                width: 10%;
+                width: 14%;
             }
             :nth-child(2) {
                 width: 10%;
@@ -129,5 +162,13 @@
                 margin: 0 auto;
             }
         }
+    }
+
+    .show {
+        max-height: 100vh;
+    }
+
+    .hide {
+        max-height: 0;
     }
 </style>

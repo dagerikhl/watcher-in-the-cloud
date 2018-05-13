@@ -1,6 +1,6 @@
 <template>
     <label class="clickable checkbox" :class="{ disabled: disabled }" :title="tooltip">
-        <input type="checkbox" id="checkbox" :checked="checked" :disabled="disabled" @change="updateChecked">
+        <input type="checkbox" id="checkbox" v-model="checked" :disabled="disabled">
         <icon name="regular/check-square" v-if="checked"></icon>
         <icon name="regular/square" v-if="!checked"></icon>
     </label>
@@ -12,11 +12,11 @@
     import ElementEvent from '../utilities/ElementEvent';
 
     @Component({
-        props: ['checked', 'disabled', 'tooltip']
+        props: ['id', 'disabled', 'tooltip']
     })
     export default class Checkbox extends Vue {
 
-        @Prop() private checked!: boolean;
+        @Prop() private id!: boolean;
         @Prop() private disabled!: boolean;
         @Prop() private tooltip!: string;
 

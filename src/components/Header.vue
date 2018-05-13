@@ -1,8 +1,8 @@
 <template>
     <header>
-        <a class="link title-container" href="/">
+        <a class="clickable title-container" href="/">
             <div class="logo"><img src="../../assets/logo.png"></div>
-            <h1 class="title">{{title}}</h1>
+            <h1 class="branch">{{title}}</h1>
         </a>
         <h2 class="author">
             by {{username}}
@@ -51,7 +51,7 @@
                 }
             }
 
-            .title {
+            .branch {
                 font-size: 200%;
                 font-weight: bold;
             }

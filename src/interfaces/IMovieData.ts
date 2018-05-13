@@ -1,4 +1,4 @@
-export default interface IMovieData {
+export interface IMovieData {
 
     id: string;
     category: string,

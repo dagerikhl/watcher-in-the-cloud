@@ -2,13 +2,14 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 
 import { database } from './database';
-import IMovieData from './interfaces/IMovieData';
+
+import { IMovieData } from '@/interfaces';
 
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
     state: {
-        moviesMarvel: null
+        moviesMarvel: []
     },
     mutations: {
         setMoviesMarvel(state, payload) {

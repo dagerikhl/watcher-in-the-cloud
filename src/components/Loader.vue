@@ -1,5 +1,5 @@
 <template>
-    <div class="loader" :class="{ show: show }">
+    <div class="loader" :class="{ show: show, hide: !show }">
         <div class="loader-text">
             Loading{{dots}}
         </div>
@@ -38,13 +38,7 @@
         height: 100%;
         width: 100%;
 
-        opacity: 0;
-
         background-color: $bkg-color-overlay;
-
-        transition: all 0.2s ease-out;
-
-        pointer-events: none;
 
         .loader-text {
             position: absolute;
@@ -62,6 +56,6 @@
     }
 
     .show {
-        opacity: 1;
+        pointer-events: all;
     }
 </style>
