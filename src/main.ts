@@ -1,10 +1,16 @@
 import Vue from 'vue';
 
+import dotenv from 'dotenv';
+
 import 'vue-awesome/icons';
 import Icon from 'vue-awesome/components/Icon.vue';
 
 import App from '@/App.vue'
 
+// Load environment variables
+dotenv.config();
+
+// Turn off Vue warning
 Vue.config.productionTip = false;
 
 // Register global plugins
