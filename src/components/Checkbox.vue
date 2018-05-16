@@ -36,8 +36,4 @@
         height: 16px;
         width: 16px;
     }
-
-    .disabled {
-        color: $color-dis;
-    }
 </style>
