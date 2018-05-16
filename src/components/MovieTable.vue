@@ -120,10 +120,10 @@
 
             colgroup {
                 :nth-child(1) {
-                    width: 14%;
+                    width: 9%;
                 }
                 :nth-child(2) {
-                    width: 10%;
+                    width: 15%;
                 }
                 :nth-child(3) {
                     width: 15%;
