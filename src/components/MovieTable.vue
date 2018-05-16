@@ -1,12 +1,15 @@
 <template>
     <section class="movie-table-container">
-        <div class="clickable branch" @click="toggleShow">
-            <div class="icon">
-                <icon name="caret-down" v-if="show"></icon>
-                <icon name="caret-right" v-if="!show"></icon>
+        <section class="table-header">
+            <div class="clickable branch" @click="toggleShow">
+                <div class="icon">
+                    <icon name="caret-down" v-if="show"></icon>
+                    <icon name="caret-right" v-if="!show"></icon>
+                </div>
+                {{branch.title}}
             </div>
-            {{branch.title}}
-        </div>
+        </section>
+
         <table class="movie-table" :class="{ show: show, hide: !show }">
             <colgroup>
                 <col v-for="_ in 7" span="1"/>
@@ -25,20 +28,17 @@
             </thead>
 
             <tbody>
-            <tr v-for="movie in data">
+            <tr v-for="(movie, i) in data">
                 <td>{{movie.category}}</td>
                 <td>{{movie.studios}}</td>
                 <td>{{movie.universe}}</td>
                 <td class="movie-title">{{movie.title}}</td>
                 <td class="centered">{{movie.year}}</td>
                 <td class="btn-column">
-                    <!-- TODO Fix not updating disabled attr in this.data on update finished -->
-                    <!--<Checkbox v-model="movie.downloaded" :checked="movie.downloaded" :disabled="movie.updating"-->
-                    <!--@input="updateDownloaded(movie)"/>-->
+                    <Checkbox v-model="data[i].downloaded" :disabled="isUpdating()"/>
                 </td>
                 <td class="btn-column">
-                    <!-- TODO Fix this as well -->
-                    <!--<Checkbox v-model="movie.seen" :checked="movie.seen"/>-->
+                    <Checkbox v-model="data[i].seen" :disabled="isUpdating()"/>
                 </td>
             </tr>
             </tbody>
@@ -50,14 +50,14 @@
     import { Component, Prop, Vue } from 'vue-property-decorator';
 
     import { database } from '../globals';
-    import { IMovieBranch, IMovieData } from '../interfaces';
+    import { IConnector, IMovieBranch, IMovieData } from '../interfaces';
     import { Checkbox } from '.';
 
     @Component({
         components: { Checkbox },
         props: ['branch', 'data']
     })
-    export default class MovieTable extends Vue {
+    export default class MovieTable extends Vue implements IConnector {
 
         private readonly textColumns = ['Category', 'Studio(s)', 'Universe', 'Title', 'Year'];
 
@@ -66,26 +66,32 @@
 
         private show: boolean = true;
 
+        private isUpdatingMovie: boolean = false;
+
         toggleShow() {
             this.show = !this.show;
         }
 
-        // TODO Remove and make generic
-        updateDownloaded(movie: IMovieData) {
-            movie.updating = true;
-
-            database.collection('movies-marvel')
-                .doc(movie.id)
-                .update({ downloaded: movie.downloaded })
-                .then(() => {
-                    movie.updating = false;
-                    console.log('Movie field "downloaded" updated.');
-                })
-                .catch((error) => {
-                    movie.updating = false;
-                    console.error(error);
-                });
+        isUpdating(): boolean {
+            return this.isUpdatingMovie;
         }
+
+        // TODO Remove and make generic
+        // updateDownloaded(movie: IMovieData) {
+        //     movie.updating = true;
+        //
+        //     database.collection('movies-marvel')
+        //         .doc(movie.id)
+        //         .update({ downloaded: movie.downloaded })
+        //         .then(() => {
+        //             movie.updating = false;
+        //             console.log('Movie field "downloaded" updated.');
+        //         })
+        //         .catch((error) => {
+        //             movie.updating = false;
+        //             console.error(error);
+        //         });
+        // }
 
     }
 </script>

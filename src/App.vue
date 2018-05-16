@@ -13,7 +13,7 @@
     import { Component, Vue } from 'vue-property-decorator';
 
     import { store } from './globals';
-    import { IMovieBranch, IMovieData } from './interfaces';
+    import { IConnector, IMovieBranch, IMovieData } from './interfaces';
     import { Header, Loader, MovieTable } from './components';
 
     @Component({
@@ -23,7 +23,7 @@
             MovieTable
         }
     })
-    export default class App extends Vue {
+    export default class App extends Vue implements IConnector {
 
         private moviesMarvelBranch: IMovieBranch = { title: 'Marvel Movies', accessor: 'moviesMarvel' };
         private moviesMarvelData: IMovieData[] = [];
@@ -47,7 +47,7 @@
                 });
         }
 
-        private isUpdating(): boolean {
+        isUpdating(): boolean {
             return this.moviesMarvelIsUpdating || this.moviesDcIsUpdating;
         }
 

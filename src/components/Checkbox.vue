@@ -1,27 +1,26 @@
 <template>
     <label class="clickable checkbox" :class="{ disabled: disabled }" :title="tooltip">
-        <input type="checkbox" id="checkbox" v-model="checked" :disabled="disabled">
-        <icon name="regular/check-square" v-if="checked"></icon>
-        <icon name="regular/square" v-if="!checked"></icon>
+        <input type="checkbox" ref="input" :checked="value" :disabled="disabled" @input="updateValue">
+        <icon name="regular/check-square" v-if="value"></icon>
+        <icon name="regular/square" v-if="!value"></icon>
     </label>
 </template>
 
 <script lang="ts">
     import { Component, Prop, Vue } from 'vue-property-decorator';
 
-    import { ElementEvent } from '../utilities';
-
     @Component({
-        props: ['id', 'disabled', 'tooltip']
+        props: ['value', 'disabled', 'tooltip']
     })
     export default class Checkbox extends Vue {
 
-        @Prop() private id!: boolean;
+        @Prop() private value!: boolean;
         @Prop() private disabled!: boolean;
+
         @Prop() private tooltip!: string;
 
-        updateChecked(event: ElementEvent<HTMLInputElement>): void {
-            this.$emit('input', event.target.checked);
+        updateValue() {
+            this.$emit('input', (this.$refs.input as HTMLInputElement).checked);
         }
 
     }
