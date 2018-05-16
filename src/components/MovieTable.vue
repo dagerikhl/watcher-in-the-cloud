@@ -1,12 +1,20 @@
 <template>
     <section class="movie-table-container">
-        <section class="table-header">
+        <section class="movie-table-header">
             <div class="clickable branch" @click="toggleShow">
                 <div class="icon">
                     <icon name="caret-down" v-if="show"></icon>
                     <icon name="caret-right" v-if="!show"></icon>
                 </div>
                 {{branch.title}}
+            </div>
+
+            <div class="table-header-btns">
+                <input class="btn clickable" type="button" value="Save Changes" onclick="this.blur()"
+                       @click="saveChanges"/>
+
+                <input class="btn clickable" type="button" value="Reset Changes" onclick="this.blur()"
+                       @click="resetData"/>
             </div>
         </section>
 
@@ -28,17 +36,17 @@
             </thead>
 
             <tbody>
-            <tr v-for="(movie, i) in data">
+            <tr v-for="(movie, i) in dynamicData">
                 <td>{{movie.category}}</td>
                 <td>{{movie.studios}}</td>
                 <td>{{movie.universe}}</td>
                 <td class="movie-title">{{movie.title}}</td>
                 <td class="centered">{{movie.year}}</td>
                 <td class="btn-column">
-                    <Checkbox v-model="data[i].downloaded" :disabled="isUpdating()"/>
+                    <Checkbox v-model="dynamicData[i].downloaded" :disabled="isUpdating()"/>
                 </td>
                 <td class="btn-column">
-                    <Checkbox v-model="data[i].seen" :disabled="isUpdating()"/>
+                    <Checkbox v-model="dynamicData[i].seen" :disabled="isUpdating()"/>
                 </td>
             </tr>
             </tbody>
@@ -47,11 +55,11 @@
 </template>
 
 <script lang="ts">
-    import { Component, Prop, Vue } from 'vue-property-decorator';
+    import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 
     import { database } from '../globals';
     import { IConnector, IMovieBranch, IMovieData } from '../interfaces';
-    import { Checkbox } from '.';
+    import { Checkbox } from './';
 
     @Component({
         components: { Checkbox },
@@ -63,6 +71,8 @@
 
         @Prop() private branch!: IMovieBranch;
         @Prop() private data!: IMovieData[];
+
+        private dynamicData: IMovieData[] = [];
 
         private show: boolean = true;
 
@@ -76,22 +86,33 @@
             return this.isUpdatingMovie;
         }
 
-        // TODO Remove and make generic
-        // updateDownloaded(movie: IMovieData) {
-        //     movie.updating = true;
-        //
-        //     database.collection('movies-marvel')
-        //         .doc(movie.id)
-        //         .update({ downloaded: movie.downloaded })
-        //         .then(() => {
-        //             movie.updating = false;
-        //             console.log('Movie field "downloaded" updated.');
-        //         })
-        //         .catch((error) => {
-        //             movie.updating = false;
-        //             console.error(error);
-        //         });
-        // }
+        @Watch('data')
+        onDataChange() {
+            this.resetData();
+        }
+
+        private saveChanges() {
+            // TODO Commit to database via a generic action
+            // updateDownloaded(movie: IMovieData) {
+            //     movie.updating = true;
+            //
+            //     database.collection('movies-marvel')
+            //         .doc(movie.id)
+            //         .update({ downloaded: movie.downloaded })
+            //         .then(() => {
+            //             movie.updating = false;
+            //             console.log('Movie field "downloaded" updated.');
+            //         })
+            //         .catch((error) => {
+            //             movie.updating = false;
+            //             console.error(error);
+            //         });
+            // }
+        }
+
+        private resetData() {
+            this.dynamicData = JSON.parse(JSON.stringify(this.data));
+        }
 
     }
 </script>
@@ -100,18 +121,32 @@
     .movie-table-container {
         margin: $standard-margin;
 
-        .branch {
+        .movie-table-header {
             display: flex;
-            align-items: center;
+            justify-content: space-between;
 
-            width: fit-content;
+            .branch {
+                display: flex;
+                align-items: center;
 
-            margin: 1em 0;
+                width: fit-content;
 
-            font-size: 150%;
+                margin: 1em 0;
 
-            .icon {
-                width: 1em;
+                font-size: 150%;
+
+                .icon {
+                    width: 1em;
+                }
+            }
+
+            .table-header-btns {
+                display: flex;
+                align-items: center;
+
+                :not(:first-child) {
+                    margin-left: 1em;
+                }
             }
         }
 

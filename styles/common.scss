@@ -74,3 +74,21 @@ svg {
 .disabled {
     color: $color-dis;
 }
+
+// General UI elements
+.btn {
+    height: 3em;
+    width: 10em;
+
+    background: $color-btn-pri;
+    border: $border-btn;
+    border-radius: $border-radius-btn;
+
+    &:hover {
+        background: $color-btn-pri-hover;
+    }
+
+    &:focus {
+        background: $color-btn-pri-active;
+    }
+}

@@ -13,12 +13,25 @@ $color-dis: #aaaaaa;
 //// Border colors
 $color-border-header: #fbebeb;
 $color-border-tab: #203010;
+$color-border-btn: #203010;
+
+//// Button colors
+$color-btn-pri: #ffffff;
+$color-btn-pri-hover: darken(#ffffff, 10%);
+$color-btn-pri-active: darken(#ffffff, 5%);
 
 // Borders
+
+//// Borders
 $border-header: 1px solid $color-border-header;
 $border-tab: 2px solid $color-border-tab;
 
 $border-link-hover: 1px solid $color-pri;
+
+$border-btn: 1px solid $color-border-btn;
+
+//// Border radius
+$border-radius-btn: 2px;
 
 // Margins and Paddings
 
