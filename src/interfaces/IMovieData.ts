@@ -7,7 +7,6 @@ export interface IMovieData {
     title: string,
     year: number | null,
     downloaded: boolean,
-    seen: boolean,
-    updating?: boolean
+    seen: boolean
 
 }
