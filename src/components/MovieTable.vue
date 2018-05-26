@@ -9,7 +9,7 @@
                 {{branch.title}}
             </div>
 
-            <div class="table-header-btns">
+            <div class="table-header-btns" :class="{ show: show, hide: !show }">
                 <input class="btn clickable" type="button" value="Save Changes" onclick="this.blur()"
                        @click="saveChanges"/>
 
