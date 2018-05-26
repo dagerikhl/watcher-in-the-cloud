@@ -73,6 +73,8 @@ svg {
 
 .disabled {
     color: $color-dis;
+
+    pointer-events: none;
 }
 
 .dirty-row {
