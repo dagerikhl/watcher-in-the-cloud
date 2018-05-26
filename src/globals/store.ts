@@ -12,12 +12,12 @@ export const store = new Vuex.Store({
         moviesDc: []
     },
     mutations: {
-        setMovies(state: any, payload: IMovies) {
-            const sortedData = payload.data.sort((a, b) => {
+        setMovies(state: any, movies: IMovies) {
+            const sortedData = movies.data.sort((a, b) => {
                 return a.year === null ? 1 : b.year === null ? -1 : a.year > b.year ? 1 : a.year < b.year ? -1 : 0;
             });
 
-            state[payload.branch.accessor] = sortedData;
+            state[movies.branch.accessor] = sortedData;
         }
     },
     actions: {
