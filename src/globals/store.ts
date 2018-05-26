@@ -36,8 +36,7 @@ export const store = new Vuex.Store({
                         resolve(data);
                     })
                     .catch((error) => {
-                        console.error(error);
-                        reject();
+                        reject(error);
                     });
             });
         }
