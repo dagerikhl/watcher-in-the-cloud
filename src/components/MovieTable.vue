@@ -6,7 +6,7 @@
                     <icon name="caret-down" v-if="show"></icon>
                     <icon name="caret-right" v-if="!show"></icon>
                 </div>
-                {{branch.title}}
+                {{movies.branch.title}}
             </div>
 
             <div class="table-header-btns" :class="{ show: show, hide: !show }">
@@ -58,20 +58,19 @@
     import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 
     import { database } from '../globals';
-    import { IConnector, IMovieBranch, IMovieData } from '../interfaces';
+    import { IConnector, IMovieData, IMovies } from '../interfaces';
     import { Checkbox } from './';
 
     @Component({
         components: { Checkbox },
-        props: ['branch', 'data']
+        props: ['movies']
     })
     export default class MovieTable extends Vue implements IConnector {
 
         // noinspection JSUnusedLocalSymbols
         private readonly textColumns = ['Category', 'Studio(s)', 'Universe', 'Title', 'Year'];
 
-        @Prop() private branch!: IMovieBranch;
-        @Prop() private data!: IMovieData[];
+        @Prop() private movies!: IMovies;
 
         // noinspection JSMismatchedCollectionQueryUpdate
         private dynamicData: IMovieData[] = [];
@@ -80,17 +79,18 @@
 
         private isUpdatingMovie: boolean = false;
 
+        @Watch('movies.data')
+        onDataChange() {
+            // TODO This might be causin the table to lose data on re-render, maybe check for null?
+            this.resetData();
+        }
+
         toggleShow() {
             this.show = !this.show;
         }
 
         isUpdating(): boolean {
             return this.isUpdatingMovie;
-        }
-
-        @Watch('data')
-        onDataChange() {
-            this.resetData();
         }
 
         // noinspection JSUnusedLocalSymbols
@@ -114,7 +114,7 @@
         }
 
         private resetData() {
-            this.dynamicData = JSON.parse(JSON.stringify(this.data));
+            this.dynamicData = JSON.parse(JSON.stringify(this.movies.data));
         }
 
     }

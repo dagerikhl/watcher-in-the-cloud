@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 
 import { database } from '@/globals';
-import { IMovieBranch, IMovieData } from '@/interfaces';
+import { IMovieBranch, IMovieData, IMovies } from '@/interfaces';
 
 Vue.use(Vuex);
 
@@ -12,7 +12,7 @@ export const store = new Vuex.Store({
         moviesDc: []
     },
     mutations: {
-        setMovies(state: any, payload: { branch: IMovieBranch, data: IMovieData[] }) {
+        setMovies(state: any, payload: IMovies) {
             const sortedData = payload.data.sort((a, b) => {
                 return a.year === null ? 1 : b.year === null ? -1 : a.year > b.year ? 1 : a.year < b.year ? -1 : 0;
             });
@@ -27,13 +27,13 @@ export const store = new Vuex.Store({
                     .orderBy('year')
                     .get()
                     .then((querySnapshot) => {
-                        let movies: IMovieData[] = [];
+                        let data: IMovieData[] = [];
                         querySnapshot.forEach((doc) => {
-                            movies.push({ id: doc.id, ...doc.data() } as IMovieData);
+                            data.push({ id: doc.id, ...doc.data() } as IMovieData);
                         });
 
-                        commit('setMovies', { branch, data: movies });
-                        resolve(movies);
+                        commit('setMovies', { branch, data: data });
+                        resolve(data);
                     })
                     .catch((error) => {
                         console.error(error);

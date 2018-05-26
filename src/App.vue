@@ -3,8 +3,8 @@
         <Header title="Watcher in the Cloud" username="dagerikhl"/>
         <section class="content-container">
             <Loader :show="isUpdating()"/>
-            <MovieTable :branch="moviesMarvelBranch" :data="moviesMarvelData"/>
-            <MovieTable :branch="moviesDcBranch" :data="moviesDcData"/>
+            <MovieTable :movies="moviesMarvel"/>
+            <MovieTable :movies="moviesDc"/>
         </section>
     </div>
 </template>
@@ -13,7 +13,7 @@
     import { Component, Vue } from 'vue-property-decorator';
 
     import { store } from './globals';
-    import { IConnector, IMovieBranch, IMovieData } from './interfaces';
+    import { IConnector, IMovies } from './interfaces';
     import { Header, Loader, MovieTable } from './components';
 
     @Component({
@@ -25,35 +25,38 @@
     })
     export default class App extends Vue implements IConnector {
 
-        private moviesMarvelBranch: IMovieBranch = { title: 'Marvel Movies', accessor: 'moviesMarvel' };
-        // noinspection JSMismatchedCollectionQueryUpdate
-        private moviesMarvelData: IMovieData[] = [];
-        private moviesMarvelIsUpdating: boolean;
+        private moviesMarvel: IMovies = {
+            branch: {
+                title: 'Marvel Movies',
+                accessor: 'moviesMarvel'
+            },
+            data: [],
+            isUpdating: false
+        };
 
-        private moviesDcBranch: IMovieBranch = { title: 'DC Movies', accessor: 'moviesDc' };
-        // noinspection JSMismatchedCollectionQueryUpdate
-        private moviesDcData: IMovieData[] = [];
-        private moviesDcIsUpdating: boolean;
+        private moviesDc: IMovies = {
+            branch: {
+                title: 'DC Movies',
+                accessor: 'moviesDc'
+            },
+            data: [],
+            isUpdating: false
+        };
 
         // noinspection JSUnusedGlobalSymbols
         created() {
-            this.moviesMarvelIsUpdating = true;
-            store.dispatch('fetchMovies', this.moviesMarvelBranch)
-                .then((movies) => {
-                    this.moviesMarvelData = movies;
-                    this.moviesMarvelIsUpdating = false;
-                });
-
-            this.moviesDcIsUpdating = true;
-            store.dispatch('fetchMovies', this.moviesDcBranch)
-                .then((movies) => {
-                    this.moviesDcData = movies;
-                    this.moviesDcIsUpdating = false;
-                });
+            [this.moviesMarvel, this.moviesDc].forEach((movies) => {
+                movies.isUpdating = true;
+                store.dispatch('fetchMovies', movies.branch)
+                    .then((data) => {
+                        movies.data = data;
+                        movies.isUpdating = false;
+                    });
+            });
         }
 
         isUpdating(): boolean {
-            return this.moviesMarvelIsUpdating || this.moviesDcIsUpdating;
+            return this.moviesMarvel.isUpdating || this.moviesDc.isUpdating;
         }
 
     }
