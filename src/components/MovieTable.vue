@@ -81,12 +81,12 @@
 
         // noinspection JSUnusedGlobalSymbols
         created() {
-            this.resetData();
+            this.initializeDynamicData();
         }
 
         @Watch('movies.data')
         onDataChange() {
-            this.resetData();
+            this.initializeDynamicData();
         }
 
         toggleShow() {
@@ -99,6 +99,7 @@
 
         // noinspection JSUnusedLocalSymbols
         private saveChanges() {
+            console.log('Saving changes');
             // TODO Commit to database via a generic action
             // updateDownloaded(movie: IMovieData) {
             //     movie.updating = true;
@@ -117,10 +118,14 @@
             // }
         }
 
-        private resetData() {
+        private initializeDynamicData() {
             if (this.dynamicData.length === 0 && this.movies.data.length > 0) {
-                this.dynamicData = JSON.parse(JSON.stringify(this.movies.data));
+                this.resetData();
             }
+        }
+
+        private resetData() {
+            this.dynamicData = JSON.parse(JSON.stringify(this.movies.data));
         }
 
     }
