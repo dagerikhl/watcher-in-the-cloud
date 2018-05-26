@@ -49,7 +49,7 @@ export const store: Store<IRootState> = new Vuex.Store<IRootState>({
 
             state[movies.branch.accessor].data = sortedData;
         },
-        updateMovie(state: IRootState, movie: IMovie) {
+        setMovie(state: IRootState, movie: IMovie) {
             let index = state[movie.branch.accessor].data.map((m) => m.id).indexOf(movie.data.id);
             state[movie.branch.accessor].data[index] = movie.data;
         }
@@ -79,7 +79,7 @@ export const store: Store<IRootState> = new Vuex.Store<IRootState>({
                     .doc(movie.data.id)
                     .update(movie.data)
                     .then(() => {
-                        commit('updateMovie', movie);
+                        commit('setMovie', movie);
                         resolve();
                     })
                     .catch((error) => {
