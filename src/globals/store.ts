@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 
 import { database } from '@/globals';
-import { IMovieBranch, IMovieData, IMovies } from '@/interfaces';
+import { IMovie, IMovieBranch, IMovieData, IMovies } from '@/interfaces';
 
 Vue.use(Vuex);
 
@@ -34,10 +34,14 @@ export const store = new Vuex.Store({
             });
 
             state[movies.branch.accessor] = sortedData;
+        },
+        updateMovie(state: any, movie: IMovie) {
+            let index = state[movie.branch.accessor].map((m: IMovieData) => m.id).indexOf(movie.data.id);
+            state[movie.branch.accessor][index] = movie;
         }
     },
     actions: {
-        fetchMovies({ commit }, branch: IMovieBranch) {
+        fetchMovies({ commit }, branch: IMovieBranch): Promise<IMovieData[]> {
             return new Promise((resolve, reject) => {
                 database.collection(branch.accessor)
                     .get()
@@ -54,6 +58,20 @@ export const store = new Vuex.Store({
                         reject(error);
                     });
             });
+        },
+        updateMovie({ commit }, movie: IMovie): Promise<void> {
+            return new Promise(((resolve, reject) => {
+                database.collection(movie.branch.accessor)
+                    .doc(movie.data.id)
+                    .update(movie.data)
+                    .then(() => {
+                        commit('updateMovie', movie);
+                        resolve();
+                    })
+                    .catch((error) => {
+                        reject(error);
+                    });
+            }));
         }
     }
 });

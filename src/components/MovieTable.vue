@@ -41,10 +41,10 @@
                 <td>{{movie.universe}}</td>
                 <td class="movie-title">{{movie.title}}</td>
                 <td class="centered">{{movie.year}}</td>
-                <td class="btn-column" :class="{ 'dirty-field': isFieldDirty('downloaded', i) }">
+                <td class="btn-column" :class="{ 'dirty-field': isDownloadedFieldDirty(i) }">
                     <Checkbox v-model="dynamicData[i].downloaded" :disabled="isUpdating()"/>
                 </td>
-                <td class="btn-column" :class="{ 'dirty-field': isFieldDirty('seen', i) }">
+                <td class="btn-column" :class="{ 'dirty-field': isSeenFieldDirty(i) }">
                     <Checkbox v-model="dynamicData[i].seen" :disabled="isUpdating()"/>
                 </td>
             </tr>
@@ -55,8 +55,8 @@
 
 <script lang="ts">
     import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
+    import { store } from '../globals';
 
-    import { database } from '../globals';
     import { IConnector, IMovieData, IMovies } from '../interfaces';
     import { Checkbox } from './';
 
@@ -76,7 +76,7 @@
 
         private show: boolean = true;
 
-        private isUpdatingMovie: boolean = false;
+        private isUpdatingMovies: boolean = false;
 
         // noinspection JSUnusedGlobalSymbols
         created() {
@@ -89,7 +89,7 @@
         }
 
         isUpdating(): boolean {
-            return this.isUpdatingMovie;
+            return this.isUpdatingMovies;
         }
 
         toggleShow() {
@@ -97,33 +97,28 @@
         }
 
         areAnyFieldsDirty(i: number): boolean {
-            return ['downloaded', 'seen'].some((f) => {
-                return this.isFieldDirty(f, i);
-            });
+            return this.isDownloadedFieldDirty(i) || this.isSeenFieldDirty(i);
         }
 
-        isFieldDirty(field: string, i: number): boolean {
-            return this.movies.data[i][field] !== this.dynamicData[i][field];
+        isDownloadedFieldDirty(i: number): boolean {
+            return this.movies.data[i].downloaded !== this.dynamicData[i].downloaded;
+        }
+
+        isSeenFieldDirty(i: number): boolean {
+            return this.movies.data[i].seen !== this.dynamicData[i].seen;
         }
 
         saveChanges() {
-            console.log('Saving changes');
-            // TODO Commit to database via a generic action
-            // updateDownloaded(movie: IMovieData) {
-            //     movie.updating = true;
-            //
-            //     database.collection('movies-marvel')
-            //         .doc(movie.id)
-            //         .update({ downloaded: movie.downloaded })
-            //         .then(() => {
-            //             movie.updating = false;
-            //             console.log('Movie field "downloaded" updated.');
-            //         })
-            //         .catch((error) => {
-            //             movie.updating = false;
-            //             console.error(error);
-            //         });
-            // }
+            this.isUpdatingMovies = true;
+            this.dynamicData.forEach((m, i) => {
+                if (this.areAnyFieldsDirty(i)) {
+                    store.dispatch('updateMovie', { branch: this.movies.branch, data: m })
+                        .then(() => {
+                            this.isUpdatingMovies = false;
+                            // TODO Fetch this.movies again
+                        });
+                }
+            });
         }
 
         resetData() {

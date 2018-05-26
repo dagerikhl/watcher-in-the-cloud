@@ -45,18 +45,20 @@
 
         // noinspection JSUnusedGlobalSymbols
         created() {
-            [this.moviesMarvel, this.moviesDc].forEach((movies) => {
-                movies.isUpdating = true;
-                store.dispatch('fetchMovies', movies.branch)
-                    .then((data) => {
-                        movies.data = data;
-                        movies.isUpdating = false;
-                    });
-            });
+            [this.moviesMarvel, this.moviesDc].forEach(this.fetchMovies);
         }
 
         isUpdating(): boolean {
             return this.moviesMarvel.isUpdating || this.moviesDc.isUpdating;
+        }
+
+        fetchMovies(movies: IMovies) {
+            movies.isUpdating = true;
+            store.dispatch('fetchMovies', movies.branch)
+                .then((data) => {
+                    movies.data = data;
+                    movies.isUpdating = false;
+                });
         }
 
     }
