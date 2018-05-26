@@ -62,13 +62,13 @@ svg {
 .show {
     opacity: 1;
 
-    transition: all 0.2s ease-in-out;
+    transition: $standard-transition;
 }
 
 .hide {
     opacity: 0;
 
-    transition: all 0.2s ease-in-out;
+    transition: $standard-transition;
 }
 
 .disabled {
@@ -83,6 +83,14 @@ svg {
 
 .dirty-field {
     color: $color-dirty;
+}
+
+.rotatable {
+    transition: $standard-transition;
+}
+
+.rotate-90 {
+    transform: rotate(-90deg);
 }
 
 // General UI elements

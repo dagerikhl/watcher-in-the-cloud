@@ -3,8 +3,7 @@
         <section class="movie-table-header">
             <div class="clickable branch" @click="toggleShow">
                 <div class="icon">
-                    <icon name="caret-down" v-if="show"></icon>
-                    <icon name="caret-right" v-if="!show"></icon>
+                    <icon name="caret-down" class="rotatable" :class="{ 'rotate-90': !show }"></icon>
                 </div>
                 {{movies.branch.title}}
             </div>
