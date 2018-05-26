@@ -67,11 +67,13 @@
     })
     export default class MovieTable extends Vue implements IConnector {
 
+        // noinspection JSUnusedLocalSymbols
         private readonly textColumns = ['Category', 'Studio(s)', 'Universe', 'Title', 'Year'];
 
         @Prop() private branch!: IMovieBranch;
         @Prop() private data!: IMovieData[];
 
+        // noinspection JSMismatchedCollectionQueryUpdate
         private dynamicData: IMovieData[] = [];
 
         private show: boolean = true;
@@ -91,6 +93,7 @@
             this.resetData();
         }
 
+        // noinspection JSUnusedLocalSymbols
         private saveChanges() {
             // TODO Commit to database via a generic action
             // updateDownloaded(movie: IMovieData) {

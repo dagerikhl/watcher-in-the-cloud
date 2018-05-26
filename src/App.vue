@@ -26,13 +26,16 @@
     export default class App extends Vue implements IConnector {
 
         private moviesMarvelBranch: IMovieBranch = { title: 'Marvel Movies', accessor: 'moviesMarvel' };
+        // noinspection JSMismatchedCollectionQueryUpdate
         private moviesMarvelData: IMovieData[] = [];
         private moviesMarvelIsUpdating: boolean = true;
 
         private moviesDcBranch: IMovieBranch = { title: 'DC Movies', accessor: 'moviesDc' };
+        // noinspection JSMismatchedCollectionQueryUpdate
         private moviesDcData: IMovieData[] = [];
         private moviesDcIsUpdating: boolean = true;
 
+        // noinspection JSUnusedGlobalSymbols
         created() {
             store.dispatch('fetchMovies', this.moviesMarvelBranch)
                 .then((movies) => {
@@ -55,6 +58,7 @@
 </script>
 
 <style lang="scss">
+    //noinspection CssUnknownTarget
     @import "~styles/common.scss";
 
     #app {
