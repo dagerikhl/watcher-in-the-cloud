@@ -79,9 +79,13 @@
 
         private isUpdatingMovie: boolean = false;
 
+        // noinspection JSUnusedGlobalSymbols
+        created() {
+            this.resetData();
+        }
+
         @Watch('movies.data')
         onDataChange() {
-            // TODO This might be causin the table to lose data on re-render, maybe check for null?
             this.resetData();
         }
 
@@ -114,7 +118,9 @@
         }
 
         private resetData() {
-            this.dynamicData = JSON.parse(JSON.stringify(this.movies.data));
+            if (this.dynamicData.length === 0 && this.movies.data.length > 0) {
+                this.dynamicData = JSON.parse(JSON.stringify(this.movies.data));
+            }
         }
 
     }
