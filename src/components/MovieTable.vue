@@ -76,11 +76,19 @@
 
         private show: boolean = true;
 
-        private isUpdatingMovies: boolean = false;
+        private needsUpdate: boolean = false;
+        private numberOfMoviesUpdating: number = 0;
 
         // noinspection JSUnusedGlobalSymbols
         created() {
             this.initializeDynamicData();
+
+            setInterval(() => {
+                if (this.needsUpdate && this.numberOfMoviesUpdating === 0) {
+                    this.needsUpdate = false;
+                    this.resetData();
+                }
+            }, 1000);
         }
 
         @Watch('movies.data')
@@ -89,7 +97,7 @@
         }
 
         isUpdating(): boolean {
-            return this.isUpdatingMovies;
+            return this.numberOfMoviesUpdating > 0;
         }
 
         toggleShow() {
@@ -109,14 +117,16 @@
         }
 
         saveChanges() {
-            this.isUpdatingMovies = true;
-            this.dynamicData.forEach((m, i) => {
-                if (this.areAnyFieldsDirty(i)) {
-                    store.dispatch('updateMovie', { branch: this.movies.branch, data: m })
-                        .then(() => {
-                            this.isUpdatingMovies = false;
-                        });
-                }
+            let movies = this.dynamicData.filter((m, i) => this.areAnyFieldsDirty(i));
+
+            this.needsUpdate = true;
+            this.numberOfMoviesUpdating = movies.length;
+
+            movies.forEach((m) => {
+                store.dispatch('updateMovie', { branch: this.movies.branch, data: m })
+                    .then(() => {
+                        this.numberOfMoviesUpdating--;
+                    });
             });
         }
 
