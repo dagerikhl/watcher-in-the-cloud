@@ -1,18 +1,32 @@
 import Vue from 'vue';
-import Vuex from 'vuex';
+import Vuex, { Store } from 'vuex';
 
 import { database } from '@/globals';
-import { IMovie, IMovieBranch, IMovieData, IMovies } from '@/interfaces';
+import { IMovie, IMovieBranch, IMovieData, IMovies, IRootState } from '@/interfaces';
 
 Vue.use(Vuex);
 
-export const store = new Vuex.Store({
+export const store: Store<IRootState> = new Vuex.Store<IRootState>({
     state: {
-        moviesMarvel: [],
-        moviesDc: []
+        moviesMarvel: {
+            branch: {
+                title: 'Marvel Movies',
+                accessor: 'moviesMarvel'
+            },
+            data: [],
+            isUpdating: false
+        },
+        moviesDc: {
+            branch: {
+                title: 'DC Movies',
+                accessor: 'moviesDc'
+            },
+            data: [],
+            isUpdating: false
+        }
     },
     mutations: {
-        setMovies(state: any, movies: IMovies) {
+        setMovies(state: IRootState, movies: IMovies) {
             const sortedData = movies.data.sort((a, b) => {
                 // First by missing year
                 if (a.year === null) return -1;
@@ -33,11 +47,11 @@ export const store = new Vuex.Store({
                 return 0;
             });
 
-            state[movies.branch.accessor] = sortedData;
+            state[movies.branch.accessor].data = sortedData;
         },
-        updateMovie(state: any, movie: IMovie) {
-            let index = state[movie.branch.accessor].map((m: IMovieData) => m.id).indexOf(movie.data.id);
-            state[movie.branch.accessor][index] = movie;
+        updateMovie(state: IRootState, movie: IMovie) {
+            let index = state[movie.branch.accessor].data.map((m) => m.id).indexOf(movie.data.id);
+            state[movie.branch.accessor].data[index] = movie.data;
         }
     },
     actions: {

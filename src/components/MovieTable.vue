@@ -115,7 +115,6 @@
                     store.dispatch('updateMovie', { branch: this.movies.branch, data: m })
                         .then(() => {
                             this.isUpdatingMovies = false;
-                            // TODO Fetch this.movies again
                         });
                 }
             });

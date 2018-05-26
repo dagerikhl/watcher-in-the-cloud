@@ -3,17 +3,18 @@
         <Header title="Watcher in the Cloud" username="dagerikhl"/>
         <section class="content-container">
             <Loader :show="isUpdating()"/>
-            <MovieTable :movies="moviesMarvel"/>
-            <MovieTable :movies="moviesDc"/>
+            <MovieTable :movies="store.state.moviesMarvel"/>
+            <MovieTable :movies="store.state.moviesDc"/>
         </section>
     </div>
 </template>
 
 <script lang="ts">
     import { Component, Vue } from 'vue-property-decorator';
+    import { Store } from 'vuex';
 
     import { store } from './globals';
-    import { IConnector, IMovies } from './interfaces';
+    import { IConnector, IMovies, IRootState } from './interfaces';
     import { Header, Loader, MovieTable } from './components';
 
     @Component({
@@ -25,40 +26,24 @@
     })
     export default class App extends Vue implements IConnector {
 
-        private moviesMarvel: IMovies = {
-            branch: {
-                title: 'Marvel Movies',
-                accessor: 'moviesMarvel'
-            },
-            data: [],
-            isUpdating: false
-        };
-
-        private moviesDc: IMovies = {
-            branch: {
-                title: 'DC Movies',
-                accessor: 'moviesDc'
-            },
-            data: [],
-            isUpdating: false
-        };
+        private store!: Store<IRootState>;
 
         // noinspection JSUnusedGlobalSymbols
         created() {
-            [this.moviesMarvel, this.moviesDc].forEach(this.fetchMovies);
+            this.store = store;
+
+            [store.state.moviesMarvel, store.state.moviesDc].forEach((movies: IMovies) => {
+                movies.isUpdating = true;
+                store.dispatch('fetchMovies', movies.branch)
+                    .then((data) => {
+                        movies.data = data;
+                        movies.isUpdating = false;
+                    });
+            });
         }
 
         isUpdating(): boolean {
-            return this.moviesMarvel.isUpdating || this.moviesDc.isUpdating;
-        }
-
-        fetchMovies(movies: IMovies) {
-            movies.isUpdating = true;
-            store.dispatch('fetchMovies', movies.branch)
-                .then((data) => {
-                    movies.data = data;
-                    movies.isUpdating = false;
-                });
+            return store.state.moviesMarvel.isUpdating || store.state.moviesDc.isUpdating;
         }
 
     }

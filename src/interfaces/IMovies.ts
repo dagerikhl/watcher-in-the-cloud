@@ -5,4 +5,5 @@ export interface IMovies {
     branch: IMovieBranch,
     data: IMovieData[],
     isUpdating: boolean
+
 }

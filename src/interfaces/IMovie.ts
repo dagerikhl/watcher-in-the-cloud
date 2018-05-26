@@ -4,4 +4,5 @@ export interface IMovie {
 
     branch: IMovieBranch,
     data: IMovieData
+
 }
