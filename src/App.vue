@@ -28,21 +28,23 @@
         private moviesMarvelBranch: IMovieBranch = { title: 'Marvel Movies', accessor: 'moviesMarvel' };
         // noinspection JSMismatchedCollectionQueryUpdate
         private moviesMarvelData: IMovieData[] = [];
-        private moviesMarvelIsUpdating: boolean = true;
+        private moviesMarvelIsUpdating: boolean;
 
         private moviesDcBranch: IMovieBranch = { title: 'DC Movies', accessor: 'moviesDc' };
         // noinspection JSMismatchedCollectionQueryUpdate
         private moviesDcData: IMovieData[] = [];
-        private moviesDcIsUpdating: boolean = true;
+        private moviesDcIsUpdating: boolean;
 
         // noinspection JSUnusedGlobalSymbols
         created() {
+            this.moviesMarvelIsUpdating = true;
             store.dispatch('fetchMovies', this.moviesMarvelBranch)
                 .then((movies) => {
                     this.moviesMarvelData = movies;
                     this.moviesMarvelIsUpdating = false;
                 });
 
+            this.moviesDcIsUpdating = true;
             store.dispatch('fetchMovies', this.moviesDcBranch)
                 .then((movies) => {
                     this.moviesDcData = movies;
