@@ -76,7 +76,7 @@
 
         private show: boolean = true;
 
-        private needsUpdate: boolean = false;
+        private moviesUpdating: IMovieData[] = [];
         private numberOfMoviesUpdating: number = 0;
 
         // noinspection JSUnusedGlobalSymbols
@@ -84,8 +84,8 @@
             this.initializeDynamicData();
 
             setInterval(() => {
-                if (this.needsUpdate && this.numberOfMoviesUpdating === 0) {
-                    this.needsUpdate = false;
+                if (this.moviesUpdating.length > 0 && this.numberOfMoviesUpdating === 0) {
+                    this.moviesUpdating = [];
                     this.resetData();
                 }
             }, 1000);
@@ -97,7 +97,7 @@
         }
 
         isUpdating(): boolean {
-            return this.numberOfMoviesUpdating > 0;
+            return this.moviesUpdating.length > 0;
         }
 
         toggleShow() {
@@ -105,7 +105,8 @@
         }
 
         areAnyFieldsDirty(i: number): boolean {
-            return this.isDownloadedFieldDirty(i) || this.isSeenFieldDirty(i);
+            return this.moviesUpdating.some((m) => m.id === this.dynamicData[i].id)
+                || this.isDownloadedFieldDirty(i) || this.isSeenFieldDirty(i);
         }
 
         isDownloadedFieldDirty(i: number): boolean {
@@ -117,12 +118,10 @@
         }
 
         saveChanges() {
-            let movies = this.dynamicData.filter((m, i) => this.areAnyFieldsDirty(i));
+            this.moviesUpdating = this.dynamicData.filter((m, i) => this.areAnyFieldsDirty(i));
+            this.numberOfMoviesUpdating = this.moviesUpdating.length;
 
-            this.needsUpdate = true;
-            this.numberOfMoviesUpdating = movies.length;
-
-            movies.forEach((m) => {
+            this.moviesUpdating.forEach((m, i) => {
                 store.dispatch('updateMovie', { branch: this.movies.branch, data: m })
                     .then(() => {
                         this.numberOfMoviesUpdating--;

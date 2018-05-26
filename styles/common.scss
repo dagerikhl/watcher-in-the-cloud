@@ -82,7 +82,9 @@ svg {
 }
 
 .dirty-field {
-    color: $color-dirty;
+    * {
+        color: $color-dirty;
+    }
 }
 
 .rotatable {
