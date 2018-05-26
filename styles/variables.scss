@@ -4,11 +4,13 @@
 $bkg-color-pri: #ffffff;
 $bkg-color-header: #fff6f6;
 $bkg-color-overlay: rgba(255, 255, 255, 0.8);
+$bkg-color-dirty: #ffdddd;
 
 //// Font colors
 $color-pri: #304050;
 $color-sec: lighten($color-pri, 50%);
 $color-dis: #aaaaaa;
+$color-dirty: #ff0000;
 
 //// Border colors
 $color-border-header: #fbebeb;

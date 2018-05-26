@@ -75,6 +75,14 @@ svg {
     color: $color-dis;
 }
 
+.dirty-row {
+    background-color: $bkg-color-dirty;
+}
+
+.dirty-field {
+    color: $color-dirty;
+}
+
 // General UI elements
 .btn {
     height: 3em;

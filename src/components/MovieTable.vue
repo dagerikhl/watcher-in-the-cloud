@@ -36,16 +36,16 @@
             </thead>
 
             <tbody>
-            <tr v-for="(movie, i) in dynamicData">
+            <tr v-for="(movie, i) in dynamicData" :class="{ 'dirty-row': areAnyFieldsDirty(i) }">
                 <td>{{movie.category}}</td>
                 <td>{{movie.studios}}</td>
                 <td>{{movie.universe}}</td>
                 <td class="movie-title">{{movie.title}}</td>
                 <td class="centered">{{movie.year}}</td>
-                <td class="btn-column">
+                <td class="btn-column" :class="{ 'dirty-field': isFieldDirty('downloaded', i) }">
                     <Checkbox v-model="dynamicData[i].downloaded" :disabled="isUpdating()"/>
                 </td>
-                <td class="btn-column">
+                <td class="btn-column" :class="{ 'dirty-field': isFieldDirty('seen', i) }">
                     <Checkbox v-model="dynamicData[i].seen" :disabled="isUpdating()"/>
                 </td>
             </tr>
@@ -89,16 +89,25 @@
             this.initializeDynamicData();
         }
 
-        toggleShow() {
-            this.show = !this.show;
-        }
-
         isUpdating(): boolean {
             return this.isUpdatingMovie;
         }
 
-        // noinspection JSUnusedLocalSymbols
-        private saveChanges() {
+        toggleShow() {
+            this.show = !this.show;
+        }
+
+        areAnyFieldsDirty(i: number): boolean {
+            return ['downloaded', 'seen'].some((f) => {
+                return this.isFieldDirty(f, i);
+            });
+        }
+
+        isFieldDirty(field: string, i: number): boolean {
+            return this.movies.data[i][field] !== this.dynamicData[i][field];
+        }
+
+        saveChanges() {
             console.log('Saving changes');
             // TODO Commit to database via a generic action
             // updateDownloaded(movie: IMovieData) {
@@ -118,14 +127,14 @@
             // }
         }
 
+        resetData() {
+            this.dynamicData = JSON.parse(JSON.stringify(this.movies.data));
+        }
+
         private initializeDynamicData() {
             if (this.dynamicData.length === 0 && this.movies.data.length > 0) {
                 this.resetData();
             }
-        }
-
-        private resetData() {
-            this.dynamicData = JSON.parse(JSON.stringify(this.movies.data));
         }
 
     }
