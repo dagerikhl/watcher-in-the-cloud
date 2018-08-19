@@ -1,6 +1,7 @@
 export interface ILink {
 
     title: string,
-    route: string
+    route?: string,
+    url?: string
 
 }

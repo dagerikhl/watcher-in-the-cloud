@@ -55,6 +55,7 @@
 
 <script lang="ts">
     import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
+
     import { store } from '../globals';
 
     import { IConnector, IMovieData, IMovies } from '../interfaces';

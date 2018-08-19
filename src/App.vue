@@ -6,6 +6,7 @@
             <Loader :show="isUpdating()"/>
             <MovieTable :movies="store.state.moviesMarvel"/>
             <MovieTable :movies="store.state.moviesDc"/>
+            <Footer :copyright="copyright" :links="footerLinks"/>
         </section>
     </div>
 </template>
@@ -13,23 +14,39 @@
 <script lang="ts">
     import { Component, Vue } from 'vue-property-decorator';
     import { Store } from 'vuex';
-    import NavigationMenu from './components/NavigationMenu';
 
     import { store } from './globals';
-    import { IConnector, IMovies, IRootState } from './interfaces';
-    import { Header, Loader, MovieTable } from './components';
+    import { IConnector, ICopyright, ILink, IMovies, IRootState } from './interfaces';
+    import { Footer, Header, Loader, MovieTable, NavigationMenu } from './components';
 
     @Component({
         components: {
-            NavigationMenu,
+            Footer,
             Header,
             Loader,
-            MovieTable
+            MovieTable,
+            NavigationMenu
         }
     })
     export default class App extends Vue implements IConnector {
 
         private store!: Store<IRootState>;
+
+        // Static display data
+        private copyright: ICopyright = {
+            name: 'Dag Erik Homdrum Løvgren',
+            year: 2018
+        };
+        private footerLinks: ILink[] = [
+            {
+                title: 'My GitHub page',
+                url: 'https://github.com/dagerikhl'
+            },
+            {
+                title: 'My LinkedIn profile',
+                url: 'https://www.linkedin.com/in/dagerikhl'
+            }
+        ];
 
         // noinspection JSUnusedGlobalSymbols
         created() {

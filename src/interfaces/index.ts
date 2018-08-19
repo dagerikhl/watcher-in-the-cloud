@@ -1,3 +1,4 @@
+export * from './ICopyright';
 export * from './IConnector';
 export * from './ILink';
 export * from './IMovieBranch';
