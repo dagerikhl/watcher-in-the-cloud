@@ -1,9 +1,9 @@
 <template>
     <header>
-        <a class="clickable title-container" href="/">
+        <router-link to="/" class="clickable title-container">
             <div class="logo"><img src="../../assets/logo.png"></div>
             <h1 class="branch">{{title}}</h1>
-        </a>
+        </router-link>
         <h2 class="author">
             by {{username}}
             (<a class="link" :href="`https://github.com/${username}`" target="_blank">GitHub</a>

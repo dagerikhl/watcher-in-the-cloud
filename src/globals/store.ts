@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import { RouteConfig } from 'vue-router';
 import Vuex, { Store } from 'vuex';
 
 import { database } from '@/globals';
@@ -8,7 +9,7 @@ Vue.use(Vuex);
 
 export const store: Store<IRootState> = new Vuex.Store<IRootState>({
     state: {
-        links: [],
+        routes: [],
         moviesMarvel: {
             branch: {
                 title: 'Marvel Movies',
@@ -27,10 +28,15 @@ export const store: Store<IRootState> = new Vuex.Store<IRootState>({
         }
     },
     mutations: {
-        setLinks(state: IRootState, links: ILink[]) {
-            state.links = links.sort((a, b) => {
-                if (a.title < b.title) return -1;
-                if (a.title > b.title) return 1;
+        setRoutes(state: IRootState, routes: RouteConfig[]) {
+            state.routes = routes.sort((a, b) => {
+                if (a.name === null) return -1;
+                if (b.name === null) return 1;
+
+                if (a.name && b.name) {
+                    if (a.name < b.name) return -1;
+                    if (a.name > b.name) return 1;
+                }
 
                 return 0;
             });
@@ -64,14 +70,14 @@ export const store: Store<IRootState> = new Vuex.Store<IRootState>({
         }
     },
     actions: {
-        fetchLinks({ commit }): Promise<ILink[]> {
+        fetchRoutes({ commit }): Promise<RouteConfig[]> {
             return new Promise((resolve, reject) => {
-                database.collection('links')
+                database.collection('routes')
                     .get()
                     .then((querySnapshot) => {
-                        let data: ILink[] = [];
+                        let data: RouteConfig[] = [];
                         querySnapshot.forEach((doc) => {
-                            data.push(doc.data() as ILink);
+                            data.push(doc.data() as RouteConfig);
                         });
 
                         resolve(data);

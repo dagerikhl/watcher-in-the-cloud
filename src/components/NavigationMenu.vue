@@ -1,9 +1,9 @@
 <template>
     <nav>
-        <div v-for="link in links" class="nav-button" :href="link.route">
+        <router-link v-for="route in routes" class="nav-button" :to="route.path">
             <div class="nav-background"></div>
-            {{link.title}}
-        </div>
+            {{route.name}}
+        </router-link>
     </nav>
 </template>
 
@@ -13,11 +13,11 @@
     import { ILink } from '../interfaces';
 
     @Component({
-        props: ['links']
+        props: ['routes']
     })
     export default class NavigationMenu extends Vue {
 
-        @Prop() private links!: ILink[];
+        @Prop() private routes!: ILink[];
 
     }
 </script>

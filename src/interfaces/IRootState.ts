@@ -1,8 +1,9 @@
-import { ILink, IMovies } from './';
+import { RouteConfig } from 'vue-router';
+import { IMovies } from './';
 
 export interface IRootState {
 
-    links: ILink[],
+    routes: RouteConfig[],
 
     moviesMarvel: IMovies,
     moviesDc: IMovies,

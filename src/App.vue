@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <Header title="Watcher in the Cloud" username="dagerikhl"/>
-        <NavigationMenu :links="store.state.links"/>
+        <NavigationMenu :routes="store.state.routes"/>
         <section class="content-container">
             <Loader :show="isUpdating()"/>
             <MovieTable :movies="store.state.moviesMarvel"/>
@@ -52,9 +52,9 @@
         created() {
             this.store = store;
 
-            // Load links
-            store.dispatch('fetchLinks')
-                .then((data) => store.commit('setLinks', data));
+            // Load routes
+            store.dispatch('fetchRoutes')
+                .then((data) => store.commit('setRoutes', data));
 
             // Load movies
             [store.state.moviesMarvel, store.state.moviesDc].forEach((movies: IMovies) => {
