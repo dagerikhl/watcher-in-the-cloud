@@ -29,6 +29,8 @@
         display: flex;
         align-items: center;
 
+        height: 2rem;
+
         background-color: $bkg-color-sub-header;
         border-bottom: $border-sub-header;
 
