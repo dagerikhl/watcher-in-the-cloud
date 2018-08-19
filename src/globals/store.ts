@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
 
 import { database } from '@/globals';
-import { IMovie, IMovieBranch, IMovieData, IMovies, IRootState } from '@/interfaces';
+import { ILink, IMovie, IMovieBranch, IMovieData, IMovies, IRootState } from '@/interfaces';
 
 Vue.use(Vuex);
 
@@ -27,6 +27,14 @@ export const store: Store<IRootState> = new Vuex.Store<IRootState>({
         }
     },
     mutations: {
+        setLinks(state: IRootState, links: ILink[]) {
+            state.links = links.sort((a, b) => {
+                if (a.title < b.title) return -1;
+                if (a.title > b.title) return 1;
+
+                return 0;
+            });
+        },
         setMovies(state: IRootState, movies: IMovies) {
             const sortedData = movies.data.sort((a, b) => {
                 // First by missing year
@@ -56,6 +64,23 @@ export const store: Store<IRootState> = new Vuex.Store<IRootState>({
         }
     },
     actions: {
+        fetchLinks({ commit }): Promise<ILink[]> {
+            return new Promise((resolve, reject) => {
+                database.collection('links')
+                    .get()
+                    .then((querySnapshot) => {
+                        let data: ILink[] = [];
+                        querySnapshot.forEach((doc) => {
+                            data.push(doc.data() as ILink);
+                        });
+
+                        resolve(data);
+                    })
+                    .catch((error) => {
+                        reject(error);
+                    });
+            });
+        },
         fetchMovies({ commit }, branch: IMovieBranch): Promise<IMovieData[]> {
             return new Promise((resolve, reject) => {
                 database.collection(branch.accessor)
@@ -66,7 +91,6 @@ export const store: Store<IRootState> = new Vuex.Store<IRootState>({
                             data.push({ id: doc.id, ...doc.data() } as IMovieData);
                         });
 
-                        commit('setMovies', { branch, data: data });
                         resolve(data);
                     })
                     .catch((error) => {

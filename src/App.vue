@@ -53,13 +53,16 @@
             this.store = store;
 
             // Load links
-            // TODO Populate nav menu with links
+            store.dispatch('fetchLinks')
+                .then((data) => store.commit('setLinks', data));
 
             // Load movies
             [store.state.moviesMarvel, store.state.moviesDc].forEach((movies: IMovies) => {
                 movies.isUpdating = true;
                 store.dispatch('fetchMovies', movies.branch)
                     .then((data) => {
+                        store.commit('setMovies', { branch: movies.branch, data });
+
                         movies.data = data;
                         movies.isUpdating = false;
                     });
