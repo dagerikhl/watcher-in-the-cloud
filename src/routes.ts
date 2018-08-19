@@ -1,10 +1,10 @@
 import { RouteConfig } from 'vue-router';
 
-import { Home, MovieTable, Series } from '@/components';
+import { Home, Movies, Series } from '@/components';
 
 const routes: RouteConfig[] = [
     { path: '/', component: Home },
-    { path: '/movies', component: MovieTable },
+    { path: '/movies', component: Movies },
     { path: '/series', component: Series }
 ];
 

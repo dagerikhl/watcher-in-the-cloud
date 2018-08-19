@@ -3,9 +3,7 @@
         <Header title="Watcher in the Cloud" username="dagerikhl"/>
         <NavigationMenu :routes="store.state.routes"/>
         <section class="content-container">
-            <Loader :show="isUpdating()"/>
-            <MovieTable :movies="store.state.moviesMarvel"/>
-            <MovieTable :movies="store.state.moviesDc"/>
+            <router-view></router-view>
             <Footer :copyright="copyright" :links="footerLinks"/>
         </section>
     </div>
@@ -16,19 +14,17 @@
     import { Store } from 'vuex';
 
     import { store } from './globals';
-    import { IConnector, ICopyright, ILink, IMovies, IRootState } from './interfaces';
-    import { Footer, Header, Loader, MovieTable, NavigationMenu } from './components';
+    import { ICopyright, ILink, IRootState } from './interfaces';
+    import { Footer, Header, NavigationMenu } from './components';
 
     @Component({
         components: {
             Footer,
             Header,
-            Loader,
-            MovieTable,
             NavigationMenu
         }
     })
-    export default class App extends Vue implements IConnector {
+    export default class App extends Vue {
 
         private store!: Store<IRootState>;
 
@@ -55,22 +51,6 @@
             // Load routes
             store.dispatch('fetchRoutes')
                 .then((data) => store.commit('setRoutes', data));
-
-            // Load movies
-            [store.state.moviesMarvel, store.state.moviesDc].forEach((movies: IMovies) => {
-                movies.isUpdating = true;
-                store.dispatch('fetchMovies', movies.branch)
-                    .then((data) => {
-                        store.commit('setMovies', { branch: movies.branch, data });
-
-                        movies.data = data;
-                        movies.isUpdating = false;
-                    });
-            });
-        }
-
-        isUpdating(): boolean {
-            return store.state.moviesMarvel.isUpdating || store.state.moviesDc.isUpdating;
         }
 
     }
@@ -89,8 +69,14 @@
         .content-container {
             flex-grow: 1;
             position: relative;
+            display: flex;
+            flex-direction: column;
 
             overflow-y: scroll;
+
+            > :first-child {
+                flex-grow: 1;
+            }
         }
     }
 </style>
