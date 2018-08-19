@@ -1,4 +1,5 @@
 export * from './IConnector';
+export * from './ILink';
 export * from './IMovieBranch';
 export * from './IMovieData';
 export * from './IMovie';

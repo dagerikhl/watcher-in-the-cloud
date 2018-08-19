@@ -8,6 +8,7 @@ Vue.use(Vuex);
 
 export const store: Store<IRootState> = new Vuex.Store<IRootState>({
     state: {
+        links: [],
         moviesMarvel: {
             branch: {
                 title: 'Marvel Movies',
@@ -50,7 +51,7 @@ export const store: Store<IRootState> = new Vuex.Store<IRootState>({
             state[movies.branch.accessor].data = sortedData;
         },
         setMovie(state: IRootState, movie: IMovie) {
-            let index = state[movie.branch.accessor].data.map((m) => m.id).indexOf(movie.data.id);
+            let index = state[movie.branch.accessor].data.map((m: IMovieData) => m.id).indexOf(movie.data.id);
             state[movie.branch.accessor].data[index] = movie.data;
         }
     },

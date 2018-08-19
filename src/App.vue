@@ -1,6 +1,7 @@
 <template>
     <div id="app">
         <Header title="Watcher in the Cloud" username="dagerikhl"/>
+        <NavigationMenu :links="store.state.links"/>
         <section class="content-container">
             <Loader :show="isUpdating()"/>
             <MovieTable :movies="store.state.moviesMarvel"/>
@@ -12,6 +13,7 @@
 <script lang="ts">
     import { Component, Vue } from 'vue-property-decorator';
     import { Store } from 'vuex';
+    import NavigationMenu from './components/NavigationMenu';
 
     import { store } from './globals';
     import { IConnector, IMovies, IRootState } from './interfaces';
@@ -19,6 +21,7 @@
 
     @Component({
         components: {
+            NavigationMenu,
             Header,
             Loader,
             MovieTable
@@ -32,6 +35,10 @@
         created() {
             this.store = store;
 
+            // Load links
+            // TODO Populate nav menu with links
+
+            // Load movies
             [store.state.moviesMarvel, store.state.moviesDc].forEach((movies: IMovies) => {
                 movies.isUpdating = true;
                 store.dispatch('fetchMovies', movies.branch)
