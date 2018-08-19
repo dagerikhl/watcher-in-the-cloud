@@ -1,6 +1,7 @@
 <template>
     <nav>
-        <router-link v-for="route in routes" class="nav-button" :to="route.path">
+        <router-link v-for="route in routes" class="nav-button"
+                     :class="route.path === $route.path ? 'active-nav' : ''" :to="route.path">
             <div class="nav-background"></div>
             {{route.name}}
         </router-link>
