@@ -3,6 +3,9 @@
 //// Background colors
 $bkg-color-pri: #ffffff;
 $bkg-color-header: #fff6f6;
+$bkg-color-sub-header: darken($bkg-color-header, 2%);
+$bkg-color-sub-header-hover: darken($bkg-color-sub-header, 2%);
+$bkg-color-sub-sub-header: darken($bkg-color-sub-header, 5%);
 $bkg-color-overlay: rgba(255, 255, 255, 0.8);
 $bkg-color-dirty: #ffdddd;
 
@@ -14,6 +17,7 @@ $color-dirty: #ff0000;
 
 //// Border colors
 $color-border-header: #fbebeb;
+$color-border-sub-header: darken(#fbebeb, 2%);
 $color-border-tab: #203010;
 $color-border-btn: #203010;
 $color-separator: #304050;
@@ -27,6 +31,7 @@ $color-btn-pri-active: darken(#ffffff, 5%);
 
 //// Borders
 $border-header: 1px solid $color-border-header;
+$border-sub-header: 1px solid $color-border-sub-header;
 $border-tab: 2px solid $color-border-tab;
 
 $border-link-hover: 1px solid $color-pri;
@@ -43,6 +48,7 @@ $standard-margin: 1rem 2rem;
 
 //// Paddings
 $standard-padding: 1rem 2rem;
+$small-padding: 0.25rem 0.75rem;
 
 // Transitions
 

@@ -34,13 +34,13 @@
         justify-content: space-between;
         align-items: center;
 
-        min-height: 8em;
+        min-height: 6rem;
 
         padding: $standard-padding;
 
         background-color: $bkg-color-header;
 
-        border-bottom: $border-header;
+        border-top: $border-header;
 
         .copyright {
             display: flex;

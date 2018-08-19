@@ -17,7 +17,7 @@
         height: 100%;
         width: 2px;
 
-        margin: 0 1em;
+        margin: 0 0.75rem;
 
         background-color: $color-separator;
     }

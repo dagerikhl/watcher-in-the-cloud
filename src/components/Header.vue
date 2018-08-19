@@ -32,7 +32,7 @@
         justify-content: space-between;
         align-items: center;
 
-        min-height: 3em;
+        min-height: 3rem;
 
         padding: $standard-padding;
 
