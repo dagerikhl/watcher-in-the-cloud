@@ -1,10 +1,6 @@
 export { default as Checkbox } from './Checkbox.vue';
 export { default as Footer } from './Footer.vue';
 export { default as Header } from './Header.vue';
-export { default as Home } from './Home.vue';
 export { default as Loader } from './Loader.vue';
-export { default as Movies } from './Movies.vue';
-// export { default as MovieTable } from './MovieTable.vue';
 export { default as NavigationMenu } from './NavigationMenu.vue';
 // export { default as Separator } from './Separator.vue';
-export { default as Series } from './Series.vue';

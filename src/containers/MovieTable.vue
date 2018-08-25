@@ -59,7 +59,7 @@
     import { store } from '../globals';
 
     import { IConnector, IMovieData, IMovies } from '../interfaces';
-    import { Checkbox } from './';
+    import { Checkbox } from '../components';
 
     @Component({
         components: { Checkbox },

@@ -3,7 +3,7 @@ import { RouteConfig } from 'vue-router';
 import Vuex, { Store } from 'vuex';
 
 import { database } from '@/globals';
-import { ILink, IMovie, IMovieBranch, IMovieData, IMovies, IRootState } from '@/interfaces';
+import { IMovie, IMovieBranch, IMovieData, IMovies, IRootState } from '@/interfaces';
 
 Vue.use(Vuex);
 

@@ -1,6 +1,6 @@
 import { RouteConfig } from 'vue-router';
 
-import { Home, Movies, Series } from '@/components';
+import { Home, Movies, Series } from '@/containers';
 
 const routes: RouteConfig[] = [
     { path: '/', component: Home },
