@@ -106,6 +106,8 @@ svg {
 
     &:hover {
         background: $color-btn-pri-hover;
+
+        cursor: pointer;
     }
 
     &:focus {

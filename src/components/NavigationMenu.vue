@@ -1,6 +1,6 @@
 <template>
     <nav>
-        <router-link v-for="route in routes" :key="route.path" class="nav-button"
+        <router-link v-for="route in routes" :key="route.path" class="nav-btn"
                      :class="route.path === $route.path ? 'active-nav' : ''" :to="route.path">
             <div class="nav-background"></div>
             {{route.name}}
@@ -36,7 +36,7 @@
 
         font-weight: bold;
 
-        .nav-button {
+        .nav-btn {
             position: relative;
             display: flex;
             align-items: center;
