@@ -19,6 +19,7 @@
         private numberOfDots = 0;
         private dots: string = '';
 
+        // noinspection JSUnusedGlobalSymbols
         created() {
             setInterval(() => {
                 if (this.show) {
