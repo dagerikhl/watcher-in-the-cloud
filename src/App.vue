@@ -29,10 +29,12 @@
         private store!: Store<IRootState>;
 
         // Static display data
+        // noinspection JSUnusedLocalSymbols
         private copyright: ICopyright = {
             name: 'Dag Erik Homdrum Løvgren',
             year: 2018
         };
+        // noinspection JSUnusedLocalSymbols, JSMismatchedCollectionQueryUpdate
         private footerLinks: ILink[] = [
             {
                 title: 'My GitHub page',
