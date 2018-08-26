@@ -16,6 +16,10 @@ export const getCurrentUser = () => {
     return firebase.auth().currentUser;
 };
 
+export const signIn = (email: string, password: string): Promise<any> => {
+    return firebase.auth().signInWithEmailAndPassword(email, password);
+};
+
 // Seed database with initial data
 // import * as seed from '@/seed';
 // seed.seedMovies(database, 'moviesMarvel');

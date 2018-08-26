@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts">
-    import { Component, Prop, Vue } from 'vue-property-decorator';
+    import { Component, Prop } from 'vue-property-decorator';
 
     import { ILink } from '../interfaces';
     import { UserContext } from '../mixins';
@@ -18,7 +18,7 @@
         props: ['routes'],
         mixins: [UserContext]
     })
-    export default class NavigationMenu extends Vue {
+    export default class NavigationMenu extends UserContext {
 
         @Prop() private routes!: ILink[];
 

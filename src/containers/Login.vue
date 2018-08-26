@@ -14,6 +14,7 @@
 
 <script lang="ts">
     import { Component, Vue } from 'vue-property-decorator';
+    import { signIn } from '../globals';
 
     @Component({})
     export default class Login extends Vue {
@@ -30,7 +31,16 @@
             e.preventDefault();
 
             // TODO Use username and password to authenticate
-            this.$router.push('/home');
+            signIn(this.username, this.password)
+                .then((user) => {
+                    console.log(user);
+
+                    // Navigate to Home
+                    this.$router.push('/home');
+                })
+                .catch((error) => {
+                    alert('Login failed.\n' + error);
+                });
         }
 
     }

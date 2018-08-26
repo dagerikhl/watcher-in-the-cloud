@@ -5,16 +5,23 @@ import { getCurrentUser } from '@/globals';
 @Component({})
 export class UserContext extends Vue {
 
-    username: string | null = null;
+    // username: string | null = null;
 
     // noinspection JSUnusedGlobalSymbols
     created() {
-        let currentUser = getCurrentUser();
-        this.username = currentUser && currentUser.displayName;
+        this.isAuthenticated();
     }
 
-    isAuthenticated() {
-        return Boolean(this.username);
+    getUsername(): string {
+        let currentUser = getCurrentUser();
+
+        return (currentUser && currentUser.email) || '';
+    }
+
+    isAuthenticated(): boolean {
+        let currentUser = getCurrentUser();
+
+        return Boolean(currentUser);
     }
 
 }

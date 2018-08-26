@@ -6,20 +6,28 @@
                 ways keep your OCD in check.</q>
         </section>
 
-        <router-link v-if="!isAuthenticated()" to="/login" class="btn">Login</router-link>
         <div v-if="isAuthenticated()">Welcome back {{username}}!</div>
+        <router-link v-if="!isAuthenticated()" to="/login" class="btn">Login</router-link>
     </section>
 </template>
 
 <script lang="ts">
-    import { Component, Vue } from 'vue-property-decorator';
+    import { Component } from 'vue-property-decorator';
 
     import { UserContext } from '../mixins';
 
     @Component({
         mixins: [UserContext]
     })
-    export default class Home extends Vue {
+    export default class Home extends UserContext {
+
+        private username: string = '';
+
+        // noinspection JSUnusedGlobalSymbols
+        created() {
+            this.username = this.getUsername();
+        }
+
     }
 </script>
 
