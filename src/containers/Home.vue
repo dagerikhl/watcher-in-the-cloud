@@ -30,6 +30,8 @@
         align-items: center;
         justify-content: space-between;
 
+        min-height: 256px;
+
         padding: 10rem 0;
 
         .info {

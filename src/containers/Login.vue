@@ -26,6 +26,7 @@
         display: flex;
         flex-direction: column;
 
+        min-height: 256px;
         width: 20rem;
 
         padding: 10rem 0;

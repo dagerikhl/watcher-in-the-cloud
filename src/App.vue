@@ -69,7 +69,7 @@
         height: 100%;
 
         .content-container {
-            flex-grow: 1;
+            flex: 1;
             position: relative;
             display: flex;
             flex-direction: column;
@@ -77,9 +77,7 @@
             overflow-y: scroll;
 
             .main-content {
-                min-height: 256px;
-
-                flex-grow: 1;
+                flex: 1;
             }
         }
     }
