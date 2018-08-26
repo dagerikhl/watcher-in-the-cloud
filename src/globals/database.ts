@@ -1,4 +1,4 @@
-import firebase from 'firebase/app';
+import firebase from 'firebase';
 import 'firebase/firestore';
 
 firebase.initializeApp({
@@ -11,6 +11,10 @@ firebase.initializeApp({
 });
 export const database = firebase.firestore();
 database.settings({ timestampsInSnapshots: true });
+
+export const getCurrentUser = () => {
+    return firebase.auth().currentUser;
+};
 
 // Seed database with initial data
 // import * as seed from '@/seed';

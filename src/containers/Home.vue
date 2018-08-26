@@ -13,28 +13,13 @@
 
 <script lang="ts">
     import { Component, Vue } from 'vue-property-decorator';
-    import * as firebase from 'firebase';
 
-    @Component({})
+    import { UserContext } from '../mixins';
+
+    @Component({
+        mixins: [UserContext]
+    })
     export default class Home extends Vue {
-
-        private username?: string;
-
-        // noinspection JSUnusedGlobalSymbols
-        created() {
-            this.username = Home.getCurrentUserUsername();
-        }
-
-        isAuthenticated() {
-            return Boolean(this.username);
-        }
-
-        private static getCurrentUserUsername(): string | undefined {
-            let currentUser = firebase.auth().currentUser;
-
-            return (currentUser && currentUser.displayName) || undefined;
-        }
-
     }
 </script>
 

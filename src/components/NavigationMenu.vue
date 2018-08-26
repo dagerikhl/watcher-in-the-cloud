@@ -1,6 +1,6 @@
 <template>
     <nav>
-        <router-link v-for="route in routes" :key="route.path" class="nav-btn"
+        <router-link v-if="isAuthenticated()" v-for="route in routes" :key="route.path" class="nav-btn"
                      :class="route.path === $route.path ? 'active-nav' : ''" :to="route.path">
             <div class="nav-background"></div>
             {{route.name}}
@@ -12,9 +12,11 @@
     import { Component, Prop, Vue } from 'vue-property-decorator';
 
     import { ILink } from '../interfaces';
+    import { UserContext } from '../mixins';
 
     @Component({
-        props: ['routes']
+        props: ['routes'],
+        mixins: [UserContext]
     })
     export default class NavigationMenu extends Vue {
 
