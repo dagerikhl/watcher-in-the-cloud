@@ -3,7 +3,7 @@
         <Header title="Watcher in the Cloud" username="dagerikhl"/>
         <NavigationMenu :routes="store.state.routes"/>
         <section class="content-container">
-            <router-view></router-view>
+            <router-view class="main-content"></router-view>
             <Footer :copyright="copyright" :links="footerLinks"/>
         </section>
     </div>
@@ -76,7 +76,9 @@
 
             overflow-y: scroll;
 
-            > :first-child {
+            .main-content {
+                min-height: 256px;
+
                 flex-grow: 1;
             }
         }

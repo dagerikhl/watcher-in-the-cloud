@@ -1,6 +1,5 @@
 <template>
     <section class="login">
-        <section class="login">DUMMY LOGIN</section>
     </section>
 </template>
 
