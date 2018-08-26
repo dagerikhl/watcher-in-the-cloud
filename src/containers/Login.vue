@@ -1,7 +1,7 @@
 <template>
     <form class="login">
         <label for="username">E-mail address</label>
-        <input class="text-input" type="email" id="username" name="username" required autofocus
+        <input class="text-input" type="email" id="username" name="username" ref="email" required
                placeholder="Your e-mail..."/>
 
         <label for="password">Password</label>
@@ -17,6 +17,12 @@
 
     @Component({})
     export default class Login extends Vue {
+
+        // noinspection JSUnusedGlobalSymbols
+        mounted() {
+            (this.$refs.email as HTMLInputElement).focus();
+        }
+
     }
 </script>
 
