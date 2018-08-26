@@ -2,6 +2,7 @@ const dotenv = require('dotenv');
 
 import Vue from 'vue';
 
+import { onAuthentication } from '@/globals';
 import router from '@/router';
 import App from '@/App.vue'
 
@@ -15,8 +16,10 @@ Vue.config.productionTip = false;
 import '@/vue-registrations';
 
 // Mount app
-// noinspection JSUnusedGlobalSymbols
-new Vue({
-    render: h => h(App),
-    router
-}).$mount('#app');
+onAuthentication(() => {
+    // noinspection JSUnusedGlobalSymbols
+    new Vue({
+        render: h => h(App),
+        router
+    }).$mount('#app');
+});

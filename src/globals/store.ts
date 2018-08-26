@@ -9,6 +9,7 @@ Vue.use(Vuex);
 
 export const store: Store<IRootState> = new Vuex.Store<IRootState>({
     state: {
+        username: '',
         routes: [],
         moviesMarvel: {
             branch: {
@@ -28,6 +29,9 @@ export const store: Store<IRootState> = new Vuex.Store<IRootState>({
         }
     },
     mutations: {
+        setUsername(state: IRootState, username: string) {
+            state.username = username;
+        },
         setRoutes(state: IRootState, routes: RouteConfig[]) {
             state.routes = routes.sort((a, b) => {
                 if (a.name === null) return -1;

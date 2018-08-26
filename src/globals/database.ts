@@ -20,6 +20,12 @@ export const signIn = (email: string, password: string): Promise<any> => {
     return firebase.auth().signInWithEmailAndPassword(email, password);
 };
 
+export const onAuthentication = (cb: Function) => {
+    firebase.auth().onAuthStateChanged(() => {
+        cb();
+    });
+};
+
 // Seed database with initial data
 // import * as seed from '@/seed';
 // seed.seedMovies(database, 'moviesMarvel');

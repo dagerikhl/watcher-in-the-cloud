@@ -1,27 +1,26 @@
 import { Component, Vue } from 'vue-property-decorator';
 
-import { getCurrentUser } from '@/globals';
+import { getCurrentUser, store } from '@/globals';
 
 @Component({})
 export class UserContext extends Vue {
 
-    // username: string | null = null;
+    username: string = '';
 
     // noinspection JSUnusedGlobalSymbols
     created() {
-        this.isAuthenticated();
-    }
-
-    getUsername(): string {
         let currentUser = getCurrentUser();
+        this.username = (currentUser && currentUser.email) || '';
 
-        return (currentUser && currentUser.email) || '';
+        store.subscribe((mutation) => {
+            if (mutation.type === 'setUsername') {
+                this.username = mutation.payload;
+            }
+        });
     }
 
     isAuthenticated(): boolean {
-        let currentUser = getCurrentUser();
-
-        return Boolean(currentUser);
+        return Boolean(this.username);
     }
 
 }

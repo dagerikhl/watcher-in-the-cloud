@@ -20,14 +20,6 @@
         mixins: [UserContext]
     })
     export default class Home extends UserContext {
-
-        private username: string = '';
-
-        // noinspection JSUnusedGlobalSymbols
-        created() {
-            this.username = this.getUsername();
-        }
-
     }
 </script>
 

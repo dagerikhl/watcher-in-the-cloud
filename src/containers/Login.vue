@@ -14,7 +14,8 @@
 
 <script lang="ts">
     import { Component, Vue } from 'vue-property-decorator';
-    import { signIn } from '../globals';
+
+    import { signIn, store } from '../globals';
 
     @Component({})
     export default class Login extends Vue {
@@ -30,12 +31,9 @@
         onSubmit(e: Event) {
             e.preventDefault();
 
-            // TODO Use username and password to authenticate
             signIn(this.username, this.password)
                 .then((user) => {
-                    console.log(user);
-
-                    // Navigate to Home
+                    store.commit('setUsername', user.email);
                     this.$router.push('/home');
                 })
                 .catch((error) => {
