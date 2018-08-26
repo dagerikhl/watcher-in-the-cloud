@@ -1,11 +1,11 @@
 <template>
-    <form class="login">
+    <form class="login" @submit="onSubmit">
         <label for="username">E-mail address</label>
-        <input class="text-input" type="email" id="username" name="username" ref="email" required
+        <input class="text-input" type="email" id="username" name="username" v-model="username" ref="email" required
                placeholder="Your e-mail..."/>
 
         <label for="password">Password</label>
-        <input class="text-input" type="password" id="password" name="password" required
+        <input class="text-input" type="password" id="password" name="password" v-model="password" required
                placeholder="Your password..."/>
 
         <button class="btn" type="submit">Login</button>
@@ -18,9 +18,19 @@
     @Component({})
     export default class Login extends Vue {
 
+        private username: string = '';
+        private password: string = '';
+
         // noinspection JSUnusedGlobalSymbols
         mounted() {
             (this.$refs.email as HTMLInputElement).focus();
+        }
+
+        onSubmit(e: Event) {
+            e.preventDefault();
+
+            // TODO Use username and password to authenticate
+            this.$router.push('/home');
         }
 
     }
