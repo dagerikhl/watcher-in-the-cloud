@@ -114,6 +114,13 @@ svg {
     }
 }
 
+.text-input {
+    padding: 0.5rem 0.5rem;
+
+    border: $border-btn;
+    border-radius: $border-radius-btn;
+}
+
 q {
     align-self: center;
     justify-self: center;
